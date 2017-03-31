@@ -5,7 +5,7 @@
  */
 package Battleship;
 
-//TCPChat.java for testing chat
+//TCPChat.java for testing chat - From tutorial - https://www.cise.ufl.edu/~amyles/tutorials/tcpchat/
 
 import java.lang.*;
 import java.util.*;
