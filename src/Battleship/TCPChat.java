@@ -236,7 +236,7 @@ public class TCPChat implements Runnable {
       mainPane.add(chatPane, BorderLayout.CENTER);
 
       // Set up the main frame
-      mainFrame = new JFrame("Simple TCP Chat");
+      mainFrame = new JFrame("BattleBoats Chat");
       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       mainFrame.setContentPane(mainPane);
       mainFrame.setSize(mainFrame.getPreferredSize());
