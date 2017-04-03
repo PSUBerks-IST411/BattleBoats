@@ -5,6 +5,8 @@
  */
 package battleboats;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Robert Zwolinski
@@ -15,7 +17,18 @@ public class BattleBoats {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Assets.init();
+        
+        JFrame gameDisplay = new JFrame("Battle Boats!");
+        gameDisplay.add(new GameDisplay());
+        gameDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameDisplay.setSize(1200, 700);
+        gameDisplay.setResizable(false);
+        gameDisplay.setLocationRelativeTo(null);
+        gameDisplay.setVisible(true);
+        gameDisplay.pack();
+        
     }
     
 }
