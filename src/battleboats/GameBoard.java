@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package battleboats;
 
+import battleboats.ships.*;
+import static battleboats.ships.Ship.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,108 +20,55 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends JPanel {
     
+    private boolean running = true;
+    
     private boolean isPainted = false;
     private int mouseX = -1, mouseY = -1;
+    
+    
+    int waterPos = 0; // For water animation
+    boolean forwardWater = true;
+    
     
     private Color colorSquare;
     
     private GameDisplay newGD;
-    private Thread t1;
-
+    private int intBoard; // To identify which labels to update, 0 for def, 1 for attack
     
-    private Carrier shipCarrier;
+    private Ship[] arrShip = new Ship[5]; // 5 ships per board
     
+    private int intSelectedShip = -1;
     
-    BufferedImage test;
+    BufferedImage imgWaterCrop;
     
-    public GameBoard(GameDisplay newGD) {
+    public GameBoard(GameDisplay newGD, int intBoard) {
         
         this.newGD = newGD;
+        this.intBoard = intBoard;
+        
+        createShips();
         
         setPreferredSize(new Dimension(500, 500));
         setMaximumSize(new Dimension(500, 500));
         setMinimumSize(new Dimension(500, 500));
         
-        this.setBackground(Color.black);
         setVisible(true);
         
         this.addMouseListener(new ClickListen());
         this.addMouseMotionListener(new ClickListen());
         this.addMouseWheelListener(new ClickListen());
         
-        
-        t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                
-                int fps = 60;
-                double timePerTick = 1000000000 / fps;
-                double delta = 0;
-                long now;
-                long lastTime = System.nanoTime();
-        
-                long timer = 0;
-                int ticks = 0;
-                
-                int c = 0; // For water animation
-                boolean forwardWater = true;
-                
-                while (true) {
-                    
-                    
-                    now = System.nanoTime();
-                    delta += (now - lastTime) / timePerTick;
-                    timer += now - lastTime;
-                    lastTime = now;
-
-                    if (delta >= 1) {
-                        
-                        test = Assets.imgWater.getSubimage(c, 0, 1000, 1000);
-                        refresh();
-                        
-                        if (c >= 1816) {
-                            forwardWater = false;
-                        }
-                        if (c <= 0) {
-                            forwardWater = true;
-                        }
-                        
-                        c = (forwardWater) ? c + 1 : c - 1;
-                        
-                        ticks++;
-                        delta--;
-                    }
-
-                    if (timer >= 1000000000){
-                        System.out.println("Ticks and Frames: " + ticks);
-                        ticks = 0;
-                        timer = 0;
-                    }
-                    
-                    
-                    
-
-                }
-            }
-            
-        });
-        
-        t1.start();
     }
-    
     
     @Override
     protected void paintComponent(Graphics g) {
         
-        super.paintComponent(g);
-        
         
         // Paint Water with transparent with background ----------------
-        g.drawImage(test, 0, 0, 500, 500, null);
+        paintWater(g);
         
         g.setColor(new Color(255, 255, 255, 70));
         g.fillRect(0, 0, 500, 500);
-        // -------------------------------------------------------------
         
         
         // Paint the Grid ------------------------------------------
@@ -134,54 +80,70 @@ public class GameBoard extends JPanel {
             g.fillRect(0, i, 500, 2);
             
         }
-        // ---------------------------------------------------------
         
-        
-        // Paint random carrier (for testing)
-        g.drawImage(Assets.imgCarrier[Ship.HORIZONTAL], 50, 50, 250, 50, null);
-        
-        
-        if (shipCarrier != null && !shipCarrier.isPlaced() && isPainted) {
-            g.drawImage(shipCarrier.getImage(), mouseX, mouseY, shipCarrier.getWidth(), shipCarrier.getHeight(), null);
-        }
-        
-        if (shipCarrier != null && shipCarrier.isPlaced()) {
-            g.drawImage(shipCarrier.getImage(), shipCarrier.getLocX(), shipCarrier.getLocY(), shipCarrier.getWidth(), shipCarrier.getHeight(), null);
-        }
-        
+        paintShips(g);
         
         
         // Paint square under mouse pointer (also for testing)
-        if (isPainted) {
+        /*if (isPainted) {
             
             g.setColor(colorSquare);
             g.fillRect(mouseX, mouseY, 50, 50);
+            
+        }*/
+        
+    }
+    
+    private void paintWater(Graphics g){
+        
+        imgWaterCrop = Assets.imgWater.getSubimage(waterPos, 0, 1000, 1000);
+        g.drawImage(imgWaterCrop, 0, 0, 500, 500, null);
+        
+        if (waterPos >= 1816) {
+            forwardWater = false;
+        }
+        if (waterPos <= 0) {
+            forwardWater = true;
+        }
+
+        waterPos = (forwardWater) ? waterPos + 1 : waterPos - 1;
+        
+    }
+    
+    private void paintShips(Graphics g){
+        
+            for (int i = 0; i < arrShip.length; i++) {
+            
+            if ((i == intSelectedShip && isPainted) || arrShip[i].isPlaced()) {
+                g.drawImage(arrShip[i].getImage(), arrShip[i].getShipSpot().x, arrShip[i].getShipSpot().y, null);
+            }
             
         }
         
     }
     
-    private synchronized void refresh() {
+    
+    protected synchronized void refresh() {
         
         repaint();
         
     }
     
-    private void newSquareColor(){
+    
+    private void createShips(){
         
-        colorSquare = new Color( (int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255));
+        arrShip[CARRIER] = new Carrier();
+        arrShip[BATTLESHIP] = new Battleship();
+        arrShip[DESTROYER] = new Destroyer();
+        arrShip[SUBMARINE] = new Submarine();
+        arrShip[PATROLBOAT] = new PatrolBoat();
         
     }
     
     
-    public void createNewShip(String strShip){
+    private void newSquareColor(){
         
-        switch (strShip){
-            case "Carrier":
-                shipCarrier = new Carrier(Ship.HORIZONTAL);
-            default:
-                System.out.println("No Ship Selected");
-        }
+        colorSquare = new Color( (int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255));
         
     }
     
@@ -200,23 +162,16 @@ public class GameBoard extends JPanel {
             mouseY = mouseY - (mouseY % 50);
             
             
-            /*if (shipCarrier != null && !shipCarrier.isPlaced()) {
-                
-                shipCarrier.setLocX(mouseX);
-                shipCarrier.setLocY(mouseY);
-                
-            }*/
-            
-            
-            
-            
             if (!(oldMouseX == mouseX && oldMouseY == mouseY)) {
                 isPainted = true;
                 newSquareColor();
                 
-                newGD.updateLabels(mouseX / 50, mouseY / 50, oldMouseX / 50, oldMouseY / 50);
+                if (intSelectedShip > -1) { // No selected ship
+                    arrShip[intSelectedShip].getShipSpot().setLocation(mouseX, mouseY);
+                }
                 
-                repaint();
+                newGD.updateLabels(mouseX / 50, mouseY / 50, oldMouseX / 50, oldMouseY / 50, intBoard);
+                
             }
             
         }
@@ -229,23 +184,23 @@ public class GameBoard extends JPanel {
             mouseY = -1;
             isPainted = false;
             
-            newGD.clearLabelColor();
-            
-            repaint();
+            newGD.clearLabelColor(intBoard);
             
         }
         
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
             
-            //System.out.println("Wheel Moved");
-            
-            if (shipCarrier != null && !shipCarrier.isPlaced()) {
+            if (intSelectedShip > -1) {
+                
+                Assets.clipSwap.setFramePosition(0);
+                Assets.clipSwap.start();
+                
                 if (e.getWheelRotation() > 0) {
-                    shipCarrier.setOrientation((shipCarrier.getOrientation() + 1) % 4);
+                    arrShip[intSelectedShip].setOrientation((arrShip[intSelectedShip].getOrientation() + 1) % 4);
                 } else if (e.getWheelRotation() < 0) {
-                    int tempOrient = (shipCarrier.getOrientation() == 0) ? 4 : shipCarrier.getOrientation();
-                    shipCarrier.setOrientation((tempOrient - 1) % 4);
+                    int tempOrient = (arrShip[intSelectedShip].getOrientation() == 0) ? 4 : arrShip[intSelectedShip].getOrientation();
+                    arrShip[intSelectedShip].setOrientation((tempOrient - 1) % 4);
                 }
             }
             
@@ -255,15 +210,114 @@ public class GameBoard extends JPanel {
         @Override
         public void mousePressed(MouseEvent e){
             
-            if (shipCarrier != null && !shipCarrier.isPlaced()) {
-                shipCarrier.setPlaced(true);
-                shipCarrier.setLocX(mouseX);
-                shipCarrier.setLocY(mouseY);
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (intSelectedShip > -1) {
+
+                    placeShip(); // check to see if placement is valid and place
+
+                } else {
+                    checkPlaced(); // check to see if user iss clicking a placed ship
+                }
+            }
+            
+            if (e.getButton() == MouseEvent.BUTTON3 && intSelectedShip > -1) {
+                
+                intSelectedShip = -1;
+                Assets.clipDeselect.setFramePosition(0);
+                Assets.clipDeselect.start();
+                
             }
             
         }
         
     }
     
+    private void placeShip(){
+        
+        if (checkPlacement()) {
+            
+            arrShip[intSelectedShip].setPlaced(true);
+                
+            intSelectedShip = -1; // Deselect ship after placement
+            
+        } else {
+            Assets.clipWrong.setFramePosition(0);
+            Assets.clipWrong.start();
+        }
+        
+    }
+    
+    private boolean checkPlacement(){
+        
+        for (int i = 0; i < arrShip.length; i++) {
+            
+            if (i == intSelectedShip || !arrShip[i].isPlaced()) {
+                continue;
+            }
+            
+            if (arrShip[i].getShipSpot().intersects(arrShip[intSelectedShip].getShipSpot())) {
+                return false;
+            }
+        }
+        
+        Rectangle rectBoard = new Rectangle(this.getWidth(), this.getHeight());
+        
+        if (!rectBoard.contains(arrShip[intSelectedShip].getShipSpot())) {
+            return false;
+        }
+        
+        return true;
+        
+    }
+    
+    private void checkPlaced(){
+        
+        int i;
+        boolean isShip = false;
+        
+        for (i = 0; i < arrShip.length; i++) {
+            
+            if (arrShip[i].getShipSpot().contains(mouseX, mouseY) && arrShip[i].isPlaced()) {
+                isShip = true;
+                break;
+            }
+        }
+        
+        if (isShip) {
+            intSelectedShip = i;
+            arrShip[i].setPlaced(false);
+            Assets.clipPickup.setFramePosition(0);
+            Assets.clipPickup.start();
+        }
+        
+    }
+    
+    public void setSelectedShip(int selectedShip){
+        
+        if (selectedShip == intSelectedShip) {
+            intSelectedShip = -1;
+            Assets.clipDeselect.setFramePosition(0);
+            Assets.clipDeselect.start();
+            return;
+        }
+        
+        if (selectedShip > -1 && arrShip[selectedShip].isPlaced()) {
+            arrShip[selectedShip].setPlaced(false);
+            Assets.clipPickup.setFramePosition(0);
+            Assets.clipPickup.start();
+        }
+        
+        intSelectedShip = selectedShip;
+    }
+    
+    public int getSelectedShip(){
+        return intSelectedShip;
+    }
+    
+    public Ship getAShip(int i){
+        
+        return arrShip[i];
+        
+    }
     
 }

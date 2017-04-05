@@ -23,11 +23,13 @@ public class BattleBoats {
         JFrame gameDisplay = new JFrame("Battle Boats!");
         gameDisplay.add(new GameDisplay());
         gameDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gameDisplay.setSize(1200, 700);
         gameDisplay.setResizable(false);
-        gameDisplay.setLocationRelativeTo(null);
         gameDisplay.setVisible(true);
+        
+        //gameDisplay.add(new GameChat());
+        
         gameDisplay.pack();
+        gameDisplay.setLocationRelativeTo(null);
         
     }
     
