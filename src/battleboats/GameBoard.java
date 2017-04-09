@@ -1,16 +1,11 @@
+// TODO: May need to extend this class into an Attacker/Defender GameBoard
 
 package battleboats;
 
 import battleboats.ships.*;
 import static battleboats.ships.Ship.*;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -164,10 +159,16 @@ public class GameBoard extends JPanel {
             
             if (!(oldMouseX == mouseX && oldMouseY == mouseY)) {
                 isPainted = true;
-                newSquareColor();
+                //newSquareColor();
                 
-                if (intSelectedShip > -1) { // No selected ship
+                if (intSelectedShip > -1) { 
                     arrShip[intSelectedShip].getShipSpot().setLocation(mouseX, mouseY);
+                } else {
+                    if (checkOccupiedSpot(mouseX, mouseY)) {
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    } else {
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
                 }
                 
                 newGD.updateLabels(mouseX / 50, mouseY / 50, oldMouseX / 50, oldMouseY / 50, intBoard);
@@ -216,7 +217,7 @@ public class GameBoard extends JPanel {
                     placeShip(); // check to see if placement is valid and place
 
                 } else {
-                    checkPlaced(); // check to see if user iss clicking a placed ship
+                    checkPlaced(); // check to see if user is clicking a placed ship
                 }
             }
             
@@ -245,6 +246,17 @@ public class GameBoard extends JPanel {
             Assets.clipWrong.start();
         }
         
+    }
+    
+    private boolean checkOccupiedSpot(int x, int y){
+        
+        for (int i = 0; i < arrShip.length; i++) {
+            if(arrShip[i].getShipSpot().contains(x, y) && arrShip[i].isPlaced()){
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private boolean checkPlacement(){
@@ -284,10 +296,7 @@ public class GameBoard extends JPanel {
         }
         
         if (isShip) {
-            intSelectedShip = i;
-            arrShip[i].setPlaced(false);
-            Assets.clipPickup.setFramePosition(0);
-            Assets.clipPickup.start();
+            setSelectedShip(i);
         }
         
     }

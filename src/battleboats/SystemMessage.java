@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// This class will be used for the system messages being sent
+// to the clients
+
 package battleboats;
 
 /**
@@ -10,5 +8,13 @@ package battleboats;
  * @author Robert Zwolinski
  */
 public class SystemMessage {
+
+    private String strMessage;
+
+    public SystemMessage(String strMessage){
+
+        this.strMessage = strMessage;
+
+    }
     
 }

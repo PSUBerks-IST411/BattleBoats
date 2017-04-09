@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package battleboats;
 
 import battleboats.ships.Ship;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 /**
@@ -188,19 +179,14 @@ public class GameDisplay extends JPanel {
                 ((JLabel) e.getSource()).setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             }
             
-            
         }
         
         @Override
         public void mousePressed(MouseEvent e){
             
-            
             strSelected = ((JLabel) e.getSource()).getName();
 
             defBoard.setSelectedShip(Ship.valueOf(strSelected));
-            
-            
-            
             
         }
         

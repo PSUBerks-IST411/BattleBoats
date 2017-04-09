@@ -20,6 +20,11 @@ public class BattleBoats {
         
         Assets.init();
         
+        
+        
+        
+        
+        
         JFrame gameDisplay = new JFrame("Battle Boats!");
         gameDisplay.add(new GameDisplay());
         gameDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +35,16 @@ public class BattleBoats {
         
         gameDisplay.pack();
         gameDisplay.setLocationRelativeTo(null);
+        
+        
+        
+        
+        JFrame login = new JFrame("Login");
+        login.add(new LoginPanel());
+        login.setResizable(false);
+        login.setVisible(true);
+        login.pack();
+        login.setLocationRelativeTo(null);
         
     }
     
