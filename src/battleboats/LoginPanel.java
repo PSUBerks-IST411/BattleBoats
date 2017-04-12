@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +24,9 @@ public class LoginPanel extends javax.swing.JPanel {
     
     private ObjectOutputStream outStream;
     private ObjectInputStream inStream;
+    private static final String strDBClass = "org.sqlite.JDBC";
+    private static final String strJDBCString = "jdbc:sqlite:";
+    private static String strDBName = "AppConstants.ROOT_FOLDER + BattleBoatsDB.db3";
     
     /**
      * Creates new form LoginPanel
@@ -162,7 +167,41 @@ public class LoginPanel extends javax.swing.JPanel {
         
         // 98.114.8.244
         
-        try {
+        String user;
+        user = jTextField1.getText();
+        
+        char[] pass = jPasswordField1.getPassword(); 
+        
+        String pwd = String.copyValueOf(pass);  // converting from array to string
+        
+        if(check_userlogin(user,pwd))
+        {
+          JOptionPane.showMessageDialog(null, "Correct Login Credentials");        
+        }
+          else
+        {
+          JOptionPane.showMessageDialog(null, "Incorrect Login Credentials");
+        }
+        
+    }
+
+        public boolean check_userlogin(String username,String password) {
+        
+            try{           
+            Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
+            Connection conn = DriverManager.getConnection("strJDBCString + strDBName");     
+            PreparedStatement pst = conn.prepareStatement("Select * FROM PLAYERS where username=? and password=?");
+            pst.setString(1, username); 
+            pst.setString(2, password);
+            ResultSet rs = pst.executeQuery();                        
+            return rs.next();            
+   }
+        catch(Exception e){
+        return false;
+   }       
+
+        
+        /* try {
             // USE 127.0.0.1 if working on this while main server is not up
             
             //client = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
@@ -177,7 +216,7 @@ public class LoginPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+        */
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
