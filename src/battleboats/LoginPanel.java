@@ -26,7 +26,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private ObjectInputStream inStream;
     private static final String strDBClass = "org.sqlite.JDBC";
     private static final String strJDBCString = "jdbc:sqlite:";
-    private static String strDBName = "AppConstants.ROOT_FOLDER + BattleBoatsDB.db3";
+    private static String strDBName = "AppConstants.ROOT_FOLDER + BattleBoatsDB.db";
     
     /**
      * Creates new form LoginPanel
@@ -193,8 +193,9 @@ public class LoginPanel extends javax.swing.JPanel {
             PreparedStatement pst = conn.prepareStatement("Select * FROM PLAYERS where username=? and password=?");
             pst.setString(1, username); 
             pst.setString(2, password);
-            ResultSet rs = pst.executeQuery();                        
-            return rs.next();            
+            ResultSet rs = pst.executeQuery();     
+            System.out.println("Testing!!!!"); //to test if code runs
+            return rs.next(); 
    }
         catch(Exception e){
         return false;
