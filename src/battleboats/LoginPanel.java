@@ -190,7 +190,7 @@ public class LoginPanel extends javax.swing.JPanel {
             try{           
             Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
             Connection conn = DriverManager.getConnection("strJDBCString + strDBName");     
-            PreparedStatement pst = conn.prepareStatement("Select * FROM PLAYERS where username=? and password=?");
+            PreparedStatement pst = conn.prepareStatement("Select * FROM PLAYER where username=? and password=?");
             pst.setString(1, username); 
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();     
