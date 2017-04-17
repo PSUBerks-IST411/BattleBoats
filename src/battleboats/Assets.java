@@ -48,16 +48,16 @@ public class Assets {
                         ("/images/carrier_scaled_" + String.valueOf(i) + ".png"));
                 
                 imgBattleship[i] = ImageIO.read(Assets.class.getResource
-                        ("/images/battleship_scaled" + String.valueOf(i) + ".png"));
+                        ("/images/battleship_scaled_" + String.valueOf(i) + ".png"));
                 
                 imgDestroyer[i] = ImageIO.read(Assets.class.getResource
-                        ("/images/destroyer_scaled" + String.valueOf(i) + ".png"));
+                        ("/images/destroyer_scaled_" + String.valueOf(i) + ".png"));
                 
                 imgSubmarine[i] = ImageIO.read(Assets.class.getResource
                         ("/images/submarine_scaled_" + String.valueOf(i) + ".png"));
                 
                 imgPatrolBoat[i] = ImageIO.read(Assets.class.getResource
-                        ("/images/patrolboat_scaled" + String.valueOf(i) + ".png"));
+                        ("/images/patrolboat_scaled_" + String.valueOf(i) + ".png"));
                 
             }
             
