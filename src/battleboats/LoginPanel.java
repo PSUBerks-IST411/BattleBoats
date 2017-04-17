@@ -26,7 +26,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private ObjectInputStream inStream;
     private static final String strDBClass = "org.sqlite.JDBC";
     private static final String strJDBCString = "jdbc:sqlite:";
-    private static String strDBName = "AppConstants.ROOT_FOLDER + BattleBoatsDB.db";
+    private static final String strDBName = "AppConstants.ROOT_FOLDER + BattleBoatsDB.db";
     
     /**
      * Creates new form LoginPanel
@@ -183,21 +183,23 @@ public class LoginPanel extends javax.swing.JPanel {
           JOptionPane.showMessageDialog(null, "Incorrect Login Credentials");
         }
         
+        
     }
 
         public boolean check_userlogin(String username,String password) {
         
             try{           
-            Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
-            Connection conn = DriverManager.getConnection("strJDBCString + strDBName");     
-            PreparedStatement pst = conn.prepareStatement("Select * FROM PLAYER where userName=? and password=?");
+            Class.forName(strDBClass);  // SQLite database connection
+            Connection conn = DriverManager.getConnection(strJDBCString + strDBName);     
+            PreparedStatement pst = conn.prepareStatement("Select * FROM Player where userName=? and password=?");
             pst.setString(1, username); 
             pst.setString(2, password);
-            ResultSet rs = pst.executeQuery();     
-            System.out.println("Testing!!!!"); //to test if code runs
-            return rs.next(); 
+            ResultSet rs = pst.executeQuery();    
+            System.out.println(rs); //to test if code runs
+            return rs.next();
+            
    }
-        catch(Exception e){
+        catch(ClassNotFoundException | SQLException e){
         return false;
    }       
 
