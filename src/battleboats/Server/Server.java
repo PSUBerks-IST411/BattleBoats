@@ -2,6 +2,10 @@
 
 package battleboats.Server;
 
+import battleboats.messages.LoginMessage;
+import battleboats.messages.SystemMessage;
+import battleboats.messages.SystemMessage.MsgType;
+import battleboats.security.hashSHA1;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,7 +35,13 @@ public class Server {
     public Server(int intPort, int intMax){
         
         int count = 0;
-        dbPath = getClass().getResource("/database/BattleBoatsDB.db").toString();
+        //dbPath = getClass().getResource("/database/BattleBoatsDB.db").toString();
+        dbPath = "resources/database/BattleBoatsDB.db";
+        
+        hashSHA1 hashThis = new hashSHA1();
+        System.out.println(hashThis.getHash("password"));
+        
+        
         
         // Open Database connection
         db = new DBConnect(dbPath);
@@ -93,20 +103,30 @@ public class Server {
                 
                 
                 while (running){
-                    strIncoming = inStream.readUTF();
+                    /*strIncoming = inStream.readUTF();
                 
                     System.out.println("Client #" + clientNo + "  IP: " + acceptCon.getInetAddress().getHostAddress());
                     System.out.println("Message: " + strIncoming);
                     
                     outStream.writeUTF("Message Received: " + strIncoming);
-                    outStream.flush();
+                    outStream.flush();*/
                     
-                    if ("exit".equals(strIncoming)) {
+                    Object newMsg = inStream.readObject();
+                    
+                    if (newMsg instanceof LoginMessage) {
+                        LoginMessage loginMsg = (LoginMessage) newMsg;
                         
-                        running = false;
-                        
+                        if (db.playerLogin(loginMsg.getUserName(), loginMsg.getPwd())) {
+                            outStream.writeObject(new SystemMessage(MsgType.Login, "Success"));
+                        } else {
+                            outStream.writeObject(new SystemMessage(MsgType.Login, "Failed"));
+                            inStream.close();
+                            outStream.close();
+                            running = false;
+                        }
                         
                     }
+                    
                 
                 }
                 
@@ -122,6 +142,8 @@ public class Server {
                 
                 
             } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
         }
