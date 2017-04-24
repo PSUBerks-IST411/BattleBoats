@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+// Login Panel
+
 package battleboats;
 
+import battleboats.internet.Player;
+import battleboats.internet.SocketHandler;
 import battleboats.messages.LoginMessage;
 import battleboats.messages.SystemMessage;
 import battleboats.messages.SystemMessage.MsgType;
 import battleboats.security.hashSHA1;
+import java.awt.Window;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,10 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class LoginPanel extends javax.swing.JPanel {
 
-    private Socket client;
-    
-    private ObjectOutputStream outStream;
-    private ObjectInputStream inStream;
+    private SocketHandler s; // Using 's' so it is quick and easy to type
     
     private hashSHA1 genHash = new hashSHA1();
     
@@ -41,40 +35,49 @@ public class LoginPanel extends javax.swing.JPanel {
     private void login(){
         
         // To login use UserName: testuser, Password: password
-        
+        // UserName's are not case sensitive. Passwords are case sensitive.
         connectServer();
-        
         
         String strUser = jtfUserName.getText();
         String strPass = genHash.getHash(jpfPassword.getPassword());
         
-        
         LoginMessage loginMsg = new LoginMessage(strUser, strPass);
         
+        
         try {
-            outStream.writeObject(loginMsg);
-            outStream.flush();
+            sendMessage(loginMsg);
             
-            Object newMsg = inStream.readObject();
+            Object newMsg = s.readObject();
             
             if (newMsg instanceof SystemMessage) {
                 SystemMessage sysMsg = (SystemMessage) newMsg;
                 
-                if (sysMsg.getMsgType() == MsgType.Login) {
+                if (sysMsg.getMsgType() == MsgType.LoginSuccess) {
                     
                     JOptionPane.showMessageDialog(null, sysMsg.getMessage());
+                    
+                    // Receive Player object from server
+                    Player player = (Player) s.readObject();
+                    s.setPlayer(player);
+                    
+                    MainLobby mainLobby = new MainLobby(s); // Pass SocketHandler to MainLobby
+                    mainLobby.setVisible(true);
+                    
+                    ((Window) getRootPane().getParent()).dispose();
+                    
+                } else if (sysMsg.getMsgType() == MsgType.LoginFail) {
+                    
+                    JOptionPane.showMessageDialog(null, sysMsg.getMessage());
+                    terminateConnection();
                     
                 }
             }
             
-        } catch (IOException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        
-        
+        } 
     }
+    
     
     private void connectServer(){
         
@@ -82,19 +85,30 @@ public class LoginPanel extends javax.swing.JPanel {
             // 98.114.8.244 - main server
             // USE 127.0.0.1 if working on this while main server is not up
             
-            client = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
-            //client = new Socket(InetAddress.getByName("98.114.8.244"), 9999);
+            s = new SocketHandler(InetAddress.getByName("127.0.0.1"), 9999);
             
-            outStream = new ObjectOutputStream(client.getOutputStream());
-            inStream = new ObjectInputStream(client.getInputStream());
-            
-            
-        } catch (UnknownHostException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         
+    }
+    
+    public void sendMessage(Object msgOut){
+        
+        if (s != null && !s.isClosed()) {
+            try {
+                
+                s.writeObject(msgOut);
+                
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+    
+    private void terminateConnection() throws IOException{
+        s.terminateConnection();
     }
     
     /**

@@ -5,7 +5,6 @@
  */
 package battleboats;
 
-import java.sql.*;
 /**
  *
  * @author casey_000

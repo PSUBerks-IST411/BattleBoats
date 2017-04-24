@@ -8,11 +8,7 @@ package battleboats;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 
 /**
  *
@@ -20,7 +16,11 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Assets {
     
-    public static BufferedImage imgWater;
+    public static BufferedImage imgWater,
+                                imgCheck,
+                                imgX,
+                                imgExplosion;
+    
     public static BufferedImage[] imgCarrier = new BufferedImage[4],
                                   imgBattleship = new BufferedImage[4],
                                   imgDestroyer = new BufferedImage[4],
@@ -28,11 +28,11 @@ public class Assets {
                                   imgPatrolBoat = new BufferedImage[4];
     
     
-    public static Clip clipPlaced;
-    public static Clip clipWrong;
-    public static Clip clipPickup;
-    public static Clip clipSwap;
-    public static Clip clipDeselect;
+    public static Clip clipPlaced,
+                       clipWrong,
+                       clipPickup,
+                       clipSwap,
+                       clipDeselect;
     
     
     public static void init() {
@@ -40,6 +40,10 @@ public class Assets {
         try {
             
             imgWater = ImageIO.read(Assets.class.getResource("/images/water.jpg"));
+            
+            imgCheck = ImageIO.read(Assets.class.getResource("/images/check_scaled.png"));
+            imgX = ImageIO.read(Assets.class.getResource("/images/x_scaled.png"));
+            imgExplosion = ImageIO.read(Assets.class.getResource("/images/explosion_scaled.png"));
             
             
             for (int i = 0; i < 4; i++) {

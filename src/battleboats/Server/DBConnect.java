@@ -1,11 +1,8 @@
 
 package battleboats.Server;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import battleboats.internet.Player;
+import java.sql.*;
 
 /**
  *
@@ -13,13 +10,14 @@ import java.sql.SQLException;
  */
 public class DBConnect {
     
-    private static final String DB_CLASS = "org.sqlite.JDBC";
-    private static final String JDBC_STRING = "jdbc:sqlite:";
+    private final String DB_CLASS = "org.sqlite.JDBC";
+    private final String JDBC_STRING = "jdbc:sqlite:";
     
     private Connection dbC;
     private ResultSet rs;
     
-    public static PreparedStatement sqlFindPlayer;
+    public PreparedStatement sqlFindPlayer;
+    public PreparedStatement sqlGetPlayer;
     
     
     public DBConnect(String strPath){
@@ -48,11 +46,14 @@ public class DBConnect {
                 "FROM Player " + 
                 "WHERE userName like ? and password like ?");
         
+        sqlGetPlayer = dbC.prepareStatement(
+                "SELECT playerID, userName, wins, losses, forfeits " +
+                "FROM Player " + 
+                "WHERE userName like ?");
+        
     }
     
     public boolean playerLogin(String userName, String password){
-        
-        // Temporarily using plaintext password until hashing is implemented
         
         try {
 
@@ -60,22 +61,37 @@ public class DBConnect {
             sqlFindPlayer.setString(2, password);
             rs = sqlFindPlayer.executeQuery();
             
-            
             // Return wether the userName/password combo was in the database
             if (!rs.isBeforeFirst()) {
                 return false;
             }
-            
             
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
         
-        
-        
         return true;
         
+    }
+    
+    public Player createPlayer(String userName){
+        
+        try {
+            
+            sqlGetPlayer.setString(1, userName);
+            rs = sqlGetPlayer.executeQuery();
+            
+            return new Player(rs.getInt("playerID"), rs.getString("userName"), rs.getInt("wins"), 
+                    rs.getInt("losses"), rs.getInt("forfeits"));
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        System.out.println("Error Creating Player from DB");
+        return null; // Something went wrong
     }
     
 }

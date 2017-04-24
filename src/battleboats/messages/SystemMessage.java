@@ -1,5 +1,6 @@
+
 // This class will be used for the system messages being sent
-// to the clients
+// to and from the clients
 
 package battleboats.messages;
 
@@ -21,8 +22,11 @@ public class SystemMessage implements Serializable {
 
     }
     
-    
-    public enum MsgType {Login, Action, Event};
+    // Login - for login related messages
+    // Action -
+    // Event - Lobby events
+    // TerminateConnection - tells the server to terminate connection
+    public enum MsgType {LoginSuccess, LoginFail, Action, Event, LobbyChat, TerminateConnection};
     
     
     
