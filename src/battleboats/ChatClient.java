@@ -24,11 +24,11 @@ public class ChatClient {
                 // 98.114.8.244 - main server
                 // USE 127.0.0.1 if working on this while main server is not up
                 
-		new ChatClient("127.0.0.1", 9999).run();
+		new ChatClient("104.39.14.85", 9999).run();
 	}
 
 	public ChatClient(String IP, int port) {
-		this.host = host;
+		host = IP;
 		this.port = port;
 	}
 
