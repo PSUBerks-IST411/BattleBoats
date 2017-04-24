@@ -24,6 +24,7 @@ public class ChatClient {
                 // 98.114.8.244 - main server
                 // USE 127.0.0.1 if working on this while main server is not up
                 
+                //TODO: Get machine's IP address (dynamic)
 		new ChatClient("104.39.14.85", 9999).run();
 	}
 
@@ -31,7 +32,7 @@ public class ChatClient {
 		host = IP;
 		this.port = port;
 	}
-
+        
 	public void run() throws IOException {
             
 		Socket client = new Socket(host, port);
@@ -43,7 +44,7 @@ public class ChatClient {
                 String username = "testuser"; //just added this for now, wasn't sure what the best way would be to fetch the username from LoginPanel - RGS
 		
 		System.out.print("User " + username + " has joined the chat");
-	
+                
 		
 		System.out.println("[Please type your message:]");
 		
