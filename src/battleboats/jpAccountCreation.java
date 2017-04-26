@@ -6,6 +6,7 @@
 package battleboats;
 
 import battleboats.AccountEntry;
+import battleboats.security.hashSHA1;
 import java.sql.*;
 
 /**
@@ -118,7 +119,10 @@ public class jpAccountCreation extends javax.swing.JPanel {
     private void jbCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateAccountActionPerformed
         AccountEntry player = new AccountEntry();
         player.setUserName(jtfUsername.getText());
-        player.setPassword(jpfPassword.getPassword().toString());
+        hashSHA1 newPW = new hashSHA1();
+        player.setPassword(newPW.getHash(jpfPassword.getPassword()));
+        
+        
         
     }//GEN-LAST:event_jbCreateAccountActionPerformed
 

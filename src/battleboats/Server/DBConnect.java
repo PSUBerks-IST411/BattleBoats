@@ -1,6 +1,7 @@
 
 package battleboats.Server;
 
+import battleboats.AccountEntry;
 import battleboats.internet.Player;
 import java.sql.*;
 
@@ -18,7 +19,8 @@ public class DBConnect {
     
     public PreparedStatement sqlFindPlayer;
     public PreparedStatement sqlGetPlayer;
-    
+    public PreparedStatement sqlCheckPlayer;
+    public PreparedStatement sqlAddPlayer;
     
     public DBConnect(String strPath){
         try {
@@ -50,7 +52,13 @@ public class DBConnect {
                 "SELECT playerID, userName, wins, losses, forfeits " +
                 "FROM Player " + 
                 "WHERE userName like ?");
+        sqlCheckPlayer = dbC.prepareStatement("SELECT userName "
+                + "FROM Player "
+                + "WHERE userName LIKE ?");
         
+        sqlAddPlayer = dbC.prepareStatement("INSERT userName, password "
+                + " INTO Player "
+                + " VALUES ?, ?");
     }
     
     public boolean playerLogin(String userName, String password){
@@ -93,5 +101,19 @@ public class DBConnect {
         System.out.println("Error Creating Player from DB");
         return null; // Something went wrong
     }
-    
+    public boolean checkPlayer(AccountEntry aeCheckPlayer) throws SQLException
+    {
+       sqlCheckPlayer.setString(1, aeCheckPlayer.getUserName());
+       rs = sqlCheckPlayer.executeQuery();
+       if (!rs.isBeforeFirst())
+       {
+       return true;
+       }
+       return false;
+    } 
+    public void addPlayer(AccountEntry aeNewPlayer) throws SQLException
+    {
+        sqlAddPlayer.setString(1, aeNewPlayer.getUserName());
+        sqlAddPlayer.setString(2, aeNewPlayer.getPassword());
+    }
 }

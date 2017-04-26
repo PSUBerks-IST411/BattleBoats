@@ -87,7 +87,7 @@ public class LoginPanel extends javax.swing.JPanel {
             // 98.114.8.244 - main server
             // USE 127.0.0.1 if working on this while main server is not up
             
-            s = new SocketHandler(InetAddress.getByName("127.0.0.1"), 9999);
+            s = new SocketHandler(InetAddress.getByName("104.39.13.48"), 9999);
             return true;
             
         } catch (IOException ex) {
