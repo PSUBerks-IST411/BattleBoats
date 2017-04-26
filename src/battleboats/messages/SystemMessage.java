@@ -13,7 +13,8 @@ import java.io.Serializable;
 public class SystemMessage implements Serializable {
 
     private final MsgType msgType;
-    private final String strMessage;
+    private String strMessage;
+    private int intID;
 
     public SystemMessage(MsgType msgType, String strMessage){
 
@@ -22,11 +23,20 @@ public class SystemMessage implements Serializable {
 
     }
     
+    public SystemMessage(MsgType msgType, String strMessage, int intID){
+
+        this.msgType = msgType;
+        this.strMessage = strMessage;
+        this.intID = intID;
+
+    }
+    
     // Login - for login related messages
     // Action -
     // Event - Lobby events
     // TerminateConnection - tells the server to terminate connection
-    public enum MsgType {LoginSuccess, LoginFail, Action, Event, LobbyChat, TerminateConnection};
+    public enum MsgType {LoginSuccess, LoginFail, Action, Event, 
+        LobbyChat, Challenge, TerminateConnection};
     
     
     
@@ -38,4 +48,7 @@ public class SystemMessage implements Serializable {
         return strMessage;
     }
     
+    public int getID(){
+        return intID;
+    }
 }

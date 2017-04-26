@@ -3,6 +3,7 @@ package battleboats.messages;
 
 import battleboats.internet.Player;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,10 +14,10 @@ public class PlayerListMessage implements Serializable {
     public enum PlayerListAction { EntireList, Add, Remove }
     
     private PlayerListAction plAction;
-    private Player[] players;
+    private ArrayList<Player> players;
     private Player player;
     
-    public PlayerListMessage(PlayerListAction plAction, Player[] players){
+    public PlayerListMessage(PlayerListAction plAction, ArrayList<Player> players){
         this.plAction = plAction;
         this.players = players;
     }
@@ -30,7 +31,7 @@ public class PlayerListMessage implements Serializable {
         return plAction;
     }
     
-    public Player[] getPlayers(){
+    public ArrayList<Player> getPlayers(){
         return players;
     }
     

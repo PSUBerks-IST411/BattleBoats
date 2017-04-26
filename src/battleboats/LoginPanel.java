@@ -12,6 +12,7 @@ import battleboats.security.hashSHA1;
 import java.awt.Window;
 import java.io.IOException;
 import java.net.InetAddress;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,7 +37,7 @@ public class LoginPanel extends javax.swing.JPanel {
         
         // To login use UserName: testuser, Password: password
         // UserName's are not case sensitive. Passwords are case sensitive.
-        connectServer();
+        if (!connectServer()) { return; } // If can't connect, exit out of method
         
         String strUser = jtfUserName.getText();
         String strPass = genHash.getHash(jpfPassword.getPassword());
@@ -54,10 +55,11 @@ public class LoginPanel extends javax.swing.JPanel {
                 
                 if (sysMsg.getMsgType() == MsgType.LoginSuccess) {
                     
-                    JOptionPane.showMessageDialog(null, sysMsg.getMessage());
+                    //JOptionPane.showMessageDialog(null, sysMsg.getMessage());
                     
                     // Receive Player object from server
                     Player player = (Player) s.readObject();
+                    player.setIsMe(true);
                     s.setPlayer(player);
                     
                     MainLobby mainLobby = new MainLobby(s); // Pass SocketHandler to MainLobby
@@ -79,16 +81,20 @@ public class LoginPanel extends javax.swing.JPanel {
     }
     
     
-    private void connectServer(){
+    private boolean connectServer(){
         
         try {
             // 98.114.8.244 - main server
             // USE 127.0.0.1 if working on this while main server is not up
             
             s = new SocketHandler(InetAddress.getByName("127.0.0.1"), 9999);
+            return true;
             
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Can't connect to Server",
+                    "Timeout", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return false;
         }
         
     }
@@ -109,6 +115,22 @@ public class LoginPanel extends javax.swing.JPanel {
     
     private void terminateConnection() throws IOException{
         s.terminateConnection();
+    }
+    
+    private void showCreateAccount(){
+        JFrame jfAccountCreation = new JFrame("Create New Account");
+        jfAccountCreation.setContentPane(new jpAccountCreation());
+        
+        jfAccountCreation.setVisible(true);
+        jfAccountCreation.setResizable(false);
+        jfAccountCreation.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        jfAccountCreation.pack();
+        jfAccountCreation.setLocationRelativeTo(null);
+    }
+    
+    protected void setDefaultButton(){
+        this.getRootPane().setDefaultButton(jbLogIn);
     }
     
     /**
@@ -151,6 +173,7 @@ public class LoginPanel extends javax.swing.JPanel {
         });
 
         jbPlayOffline.setText("Play Offline");
+        jbPlayOffline.setEnabled(false);
         jbPlayOffline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbPlayOfflineActionPerformed(evt);
@@ -209,12 +232,12 @@ public class LoginPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jbCreateAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateAccountActionPerformed
-        // TODO add your handling code here:
+        showCreateAccount();
     }//GEN-LAST:event_jbCreateAccountActionPerformed
 
     private void jbLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogInActionPerformed

@@ -79,7 +79,7 @@
                       <Component id="jbCreateAccount" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="153" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,6 +127,7 @@
     <Component class="javax.swing.JButton" name="jbPlayOffline">
       <Properties>
         <Property name="text" type="java.lang.String" value="Play Offline"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbPlayOfflineActionPerformed"/>
