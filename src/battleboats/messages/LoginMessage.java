@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 public class LoginMessage implements Serializable {
     
-    private String userName;
-    private String pwdHash;
+    private final String userName;
+    private final String pwdHash;
     
     public LoginMessage(String strUser, String strPass){
         userName = strUser;

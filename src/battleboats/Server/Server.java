@@ -6,15 +6,12 @@ package battleboats.Server;
 import battleboats.internet.Player;
 import battleboats.internet.Player.Status;
 import battleboats.internet.SocketHandler;
-import battleboats.messages.LoginMessage;
-import battleboats.messages.PlayerListMessage;
+import battleboats.messages.*;
 import battleboats.messages.PlayerListMessage.PlayerListAction;
-import battleboats.messages.PlayerStatusUpdate;
-import battleboats.messages.SystemMessage;
 import battleboats.messages.SystemMessage.MsgType;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -34,7 +31,7 @@ public class Server {
     
     
     // List of all active connections
-    private volatile ArrayList<SocketHandler> lobbyClients = new ArrayList<>();
+    private CopyOnWriteArrayList<SocketHandler> lobbyClients = new CopyOnWriteArrayList<>();
     
     
     public static void main(String[] args) {
@@ -103,7 +100,7 @@ public class Server {
                         
                         // Might need to make DB access synchronized here
                         if (db.playerLogin(loginMsg.getUserName(), loginMsg.getPwd())) {
-                            s.writeObject(new SystemMessage(MsgType.LoginSuccess, "Success"));
+                            s.writeObject(new SystemMessage(MsgType.Login, true));
                             
                             Player player = createPlayer(loginMsg.getUserName());
                             s.setPlayer(player);
@@ -114,7 +111,7 @@ public class Server {
                             
                             
                         } else {
-                            s.writeObject(new SystemMessage(MsgType.LoginFail, "Incorrect Login"));
+                            s.writeObject(new SystemMessage(MsgType.Login, false));
                             terminateConnection();
                         }
                         
@@ -143,6 +140,22 @@ public class Server {
                                 break;
                         }
                         
+                        
+                    } else if (newMsg instanceof AccountEntry) {
+                        AccountEntry account = (AccountEntry) newMsg;
+                        
+                        if (db.checkPlayer(account)) {
+                            if (db.addPlayer(account)) {
+                                s.writeObject(new SystemMessage(MsgType.AccountCreation, true));
+                            } else { 
+                                // INSERT statement failed
+                                s.writeObject(new SystemMessage(MsgType.AccountCreation, false, "Database Error"));
+                            }
+                        } else {
+                            // UserName already exists
+                            s.writeObject(new SystemMessage(MsgType.AccountCreation, false, 
+                                    "The Username you have selected is already taken."));
+                        }
                         
                     }
                     
@@ -259,8 +272,9 @@ public class Server {
         lobbyClients.add(s);
         
         // Send List of all players to new client
-        ArrayList<Player> players = new ArrayList<>();
+        CopyOnWriteArrayList<Player> players = new CopyOnWriteArrayList<>();
         int len = lobbyClients.size();
+        
         for (int i = 0; i < len; i++) {
             players.add(lobbyClients.get(i).getPlayer());
         }

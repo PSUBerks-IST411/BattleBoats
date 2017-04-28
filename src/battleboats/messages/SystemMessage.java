@@ -15,6 +15,7 @@ public class SystemMessage implements Serializable {
     private final MsgType msgType;
     private String strMessage;
     private int intID;
+    private boolean boolResult;
 
     public SystemMessage(MsgType msgType, String strMessage){
 
@@ -31,11 +32,26 @@ public class SystemMessage implements Serializable {
 
     }
     
+    public SystemMessage(MsgType msgType, boolean boolResult){
+        
+        this.msgType = msgType;
+        this.boolResult = boolResult;
+        
+    }
+    
+    public SystemMessage(MsgType msgType, boolean boolResult, String strMessage){
+        
+        this.msgType = msgType;
+        this.boolResult = boolResult;
+        this.strMessage = strMessage;
+        
+    }
+    
     // Login - for login related messages
     // Action -
     // Event - Lobby events
     // TerminateConnection - tells the server to terminate connection
-    public enum MsgType {LoginSuccess, LoginFail, Action, Event, 
+    public enum MsgType {Login, AccountCreation, Action, Event, 
         LobbyChat, Challenge, TerminateConnection};
     
     
@@ -50,5 +66,9 @@ public class SystemMessage implements Serializable {
     
     public int getID(){
         return intID;
+    }
+    
+    public boolean getResult(){
+        return boolResult;
     }
 }

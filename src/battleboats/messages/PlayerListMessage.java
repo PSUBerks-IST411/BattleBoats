@@ -4,6 +4,7 @@ package battleboats.messages;
 import battleboats.internet.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -14,10 +15,10 @@ public class PlayerListMessage implements Serializable {
     public enum PlayerListAction { EntireList, Add, Remove }
     
     private PlayerListAction plAction;
-    private ArrayList<Player> players;
+    private CopyOnWriteArrayList<Player> players;
     private Player player;
     
-    public PlayerListMessage(PlayerListAction plAction, ArrayList<Player> players){
+    public PlayerListMessage(PlayerListAction plAction, CopyOnWriteArrayList<Player> players){
         this.plAction = plAction;
         this.players = players;
     }
@@ -31,7 +32,7 @@ public class PlayerListMessage implements Serializable {
         return plAction;
     }
     
-    public ArrayList<Player> getPlayers(){
+    public CopyOnWriteArrayList<Player> getPlayers(){
         return players;
     }
     

@@ -59,6 +59,18 @@ public class Player implements Serializable, Comparable {
         return intID;
     }
     
+    public int getWins(){
+        return intWins;
+    }
+    
+    public int getLosses(){
+        return intLosses;
+    }
+    
+    public int getForfeits(){
+        return intForfeits;
+    }
+    
     @Override
     public String toString(){
         

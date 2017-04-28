@@ -21,10 +21,19 @@ import javax.swing.JOptionPane;
  */
 public class LoginPanel extends javax.swing.JPanel {
 
+    private static final String MAIN_SERVER = "98.114.8.244";
+    private static final String LOCAL_SERVER = "127.0.0.1";
+    private static final String LOCAL_NETWORK = "192.168.1.13"; // Temporary, only for personal use
+    
+    
+    public static final String SELECTED_SERVER = LOCAL_SERVER; // --SELECTED SERVER
+    
+    
     private SocketHandler s; // Using 's' so it is quick and easy to type
     
     private hashSHA1 genHash = new hashSHA1();
     
+    private JFrame jfAccountCreation;
     
     /**
      * Creates new form LoginPanel2
@@ -53,24 +62,31 @@ public class LoginPanel extends javax.swing.JPanel {
             if (newMsg instanceof SystemMessage) {
                 SystemMessage sysMsg = (SystemMessage) newMsg;
                 
-                if (sysMsg.getMsgType() == MsgType.LoginSuccess) {
+                if (sysMsg.getMsgType() == MsgType.Login) {
                     
-                    //JOptionPane.showMessageDialog(null, sysMsg.getMessage());
+                    if (sysMsg.getResult()) { // Successful Login
+                        
+                        // Receive Player object from server
+                        Player player = (Player) s.readObject();
+                        player.setIsMe(true);
+                        s.setPlayer(player);
+
+                        MainLobby mainLobby = new MainLobby(s); // Pass SocketHandler to MainLobby
+                        mainLobby.setVisible(true);
+
+                        ((Window) getRootPane().getParent()).dispose();
+                        // Close Account Creation window if open
+                        if (jfAccountCreation != null) {
+                            jfAccountCreation.dispose();
+                        }
+                        
+                    } else { // Bad Login
                     
-                    // Receive Player object from server
-                    Player player = (Player) s.readObject();
-                    player.setIsMe(true);
-                    s.setPlayer(player);
+                        JOptionPane.showMessageDialog(null, "The login information you entered "
+                                + "was incorrect. Please try again.", "Invalid", JOptionPane.WARNING_MESSAGE);
+                        terminateConnection();
                     
-                    MainLobby mainLobby = new MainLobby(s); // Pass SocketHandler to MainLobby
-                    mainLobby.setVisible(true);
-                    
-                    ((Window) getRootPane().getParent()).dispose();
-                    
-                } else if (sysMsg.getMsgType() == MsgType.LoginFail) {
-                    
-                    JOptionPane.showMessageDialog(null, sysMsg.getMessage());
-                    terminateConnection();
+                    }
                     
                 }
             }
@@ -87,7 +103,7 @@ public class LoginPanel extends javax.swing.JPanel {
             // 98.114.8.244 - main server
             // USE 127.0.0.1 if working on this while main server is not up
             
-            s = new SocketHandler(InetAddress.getByName("104.39.13.48"), 9999);
+            s = new SocketHandler(InetAddress.getByName(SELECTED_SERVER), 9999);
             return true;
             
         } catch (IOException ex) {
@@ -118,8 +134,8 @@ public class LoginPanel extends javax.swing.JPanel {
     }
     
     private void showCreateAccount(){
-        JFrame jfAccountCreation = new JFrame("Create New Account");
-        jfAccountCreation.setContentPane(new jpAccountCreation());
+        jfAccountCreation = new JFrame("Create New Account");
+        jfAccountCreation.setContentPane(new jpAccountCreation(s));
         
         jfAccountCreation.setVisible(true);
         jfAccountCreation.setResizable(false);

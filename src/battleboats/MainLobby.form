@@ -231,6 +231,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancel Challenge"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTime">
           <Properties>
@@ -240,7 +243,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="60"/>
+            <Property name="text" type="java.lang.String" value="30"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCount">

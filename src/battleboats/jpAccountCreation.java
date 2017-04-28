@@ -1,30 +1,91 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package battleboats;
 
-import battleboats.AccountEntry;
+import battleboats.messages.AccountEntry;
+import battleboats.internet.SocketHandler;
+import battleboats.messages.SystemMessage;
+import battleboats.messages.SystemMessage.MsgType;
 import battleboats.security.hashSHA1;
-import java.sql.*;
+import java.awt.Window;
+import java.io.IOException;
+import java.net.InetAddress;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author casey_000
  */
 public class jpAccountCreation extends javax.swing.JPanel {
-
-    public AccountEntry newEntry;
+    
+    private SocketHandler s;
     
     /**
      * Creates new form jpAccountCreation
      */
-    public jpAccountCreation() {
+    public jpAccountCreation(SocketHandler s) {
         initComponents();
+        this.s = s;
     }
     
-    // Adapted from DietelJDBC 
+    private void sendAccount(){
+        
+        // Do Some checks before communicating with the server -----
+        int len = jtfUsername.getText().length();
+        if (len > 16 || len < 3) {
+            JOptionPane.showMessageDialog(null, "Please enter a username between 3 and 16 characters.", 
+                    "Username Length", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        len = jpfPassword.getPassword().length;
+        if (len < 4) {
+            JOptionPane.showMessageDialog(null, "Password has to be at least 4 characters.", 
+                    "Password Length", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!connectServer()) { return; }
+        
+        
+        hashSHA1 newPW = new hashSHA1();
+        AccountEntry account = new AccountEntry(jtfUsername.getText(), 
+                newPW.getHash(jpfPassword.getPassword()));
+        
+        try {
+            s.writeObject(account);
+            SystemMessage sysMsg = (SystemMessage) s.readObject();
+            
+            if (sysMsg.getMsgType() == MsgType.AccountCreation) {
+                if (sysMsg.getResult()) {
+                    JOptionPane.showMessageDialog(null, "Successfully created account!", 
+                            "Account Created", JOptionPane.INFORMATION_MESSAGE);
+                    jbCancel.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(null, sysMsg.getMessage(), "Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+    
+    private boolean connectServer(){
+        
+        try {
+            
+            s = new SocketHandler(InetAddress.getByName(LoginPanel.SELECTED_SERVER), 9999);
+            return true;
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Can't connect to Server",
+                    "Timeout", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return false;
+        }
+        
+    }
+    
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,9 +102,11 @@ public class jpAccountCreation extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jpfPassword = new javax.swing.JPasswordField();
         jbCreateAccount = new javax.swing.JButton();
+        jbCancel = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(435, 180));
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Please enter your desired Username and Password in the fields below.");
 
         jtfUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -69,32 +132,44 @@ public class jpAccountCreation extends javax.swing.JPanel {
             }
         });
 
+        jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
+                .addGap(90, 90, 90)
+                .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbCreateAccount)
+                .addGap(0, 91, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbCreateAccount)
                     .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -103,7 +178,9 @@ public class jpAccountCreation extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jbCreateAccount)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCreateAccount)
+                    .addComponent(jbCancel))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -117,20 +194,19 @@ public class jpAccountCreation extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfUsernameActionPerformed
 
     private void jbCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateAccountActionPerformed
-        AccountEntry player = new AccountEntry();
-        player.setUserName(jtfUsername.getText());
-        hashSHA1 newPW = new hashSHA1();
-        player.setPassword(newPW.getHash(jpfPassword.getPassword()));
-        
-        
-        
+        sendAccount();
     }//GEN-LAST:event_jbCreateAccountActionPerformed
+
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+        ((Window) getRootPane().getParent()).dispose();
+    }//GEN-LAST:event_jbCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbCancel;
     private javax.swing.JButton jbCreateAccount;
     private javax.swing.JPasswordField jpfPassword;
     private javax.swing.JTextField jtfUsername;

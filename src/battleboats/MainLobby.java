@@ -8,15 +8,13 @@ package battleboats;
 import battleboats.internet.Player;
 import battleboats.internet.Player.Status;
 import battleboats.internet.SocketHandler;
-import battleboats.messages.PlayerListMessage;
-import battleboats.messages.PlayerStatusUpdate;
-import battleboats.messages.SystemMessage;
+import battleboats.messages.*;
 import battleboats.messages.SystemMessage.MsgType;
 import java.awt.Font;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
 
 /**
@@ -36,8 +34,9 @@ public class MainLobby extends javax.swing.JFrame {
     
     private StringBuffer chatText = new StringBuffer();
     
-    private volatile ArrayList<Player> arrPlayers = new ArrayList<>();
+    private CopyOnWriteArrayList<Player> arrPlayers = new CopyOnWriteArrayList<>();
     private volatile boolean running = true;
+    private volatile boolean challengePending = false;
     
     
     /**
@@ -91,8 +90,17 @@ public class MainLobby extends javax.swing.JFrame {
                             case Remove:
                                 // Shouldn't need to re-sort
                                 arrPlayers.remove(plMsg.getPlayer());
-                                listModel.removeElement(plMsg.getPlayer());
-                                lblCount.setText(String.valueOf(arrPlayers.size()));
+                                
+                                SwingUtilities.invokeLater(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        listModel.removeElement(plMsg.getPlayer());
+                                        
+                                        lblCount.setText(String.valueOf(arrPlayers.size()));
+                                    }
+
+                                });
+                                
                                 break;
                             case Add:
                                 arrPlayers.add(plMsg.getPlayer());
@@ -108,20 +116,22 @@ public class MainLobby extends javax.swing.JFrame {
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("<br /> ");
                                 txtChat.setText(chatText.toString());
+                                scrollDown();
                                 break;
                             case LobbyChat:
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("<br /> ");
                                 txtChat.setText(chatText.toString());
+                                scrollDown();
                                 break;
                             case Challenge:
                                 
-                                
+                                new jfChallenge(s.getPlayer()).setVisible(true);
                                 chatText.append("<b>You have received a challenge from ");
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("!</b><br />");
                                 txtChat.setText(chatText.toString());
-                                txtChat.setCaretPosition(txtChat.getDocument().getLength());
+                                scrollDown();
                                 
                                 break;
                             default:
@@ -142,6 +152,10 @@ public class MainLobby extends javax.swing.JFrame {
         
     }
     
+    private void scrollDown(){
+        txtChat.setCaretPosition(txtChat.getDocument().getLength());
+    }
+    
     private void challengePlayer(){
         
         
@@ -156,23 +170,36 @@ public class MainLobby extends javax.swing.JFrame {
                 break;
             }
         }
+        System.out.println("updated");
         refreshPlayerList(false);
     }
     
     private void sortPlayerList(){
         Collections.sort(arrPlayers);
-        lblCount.setText(String.valueOf(arrPlayers.size()));
+        
     }
     
-    private synchronized void refreshPlayerList(boolean sort){
+    private void refreshPlayerList(boolean sort){
         
         // Sort players and display new sorted list
         if (sort) { sortPlayerList(); }
         
-        listModel.clear();
-        arrPlayers.forEach((player) -> {
-            listModel.addElement(player);
+
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run() {
+                listModel.clear();
+                arrPlayers.forEach((player) -> {
+                    listModel.addElement(player);
+                });
+                lblCount.setText(String.valueOf(arrPlayers.size()));
+                System.out.println("displayed");
+            }
+            
         });
+        
+        
+        
         
     }
     
@@ -191,9 +218,18 @@ public class MainLobby extends javax.swing.JFrame {
     }
     
     private void showChallengeComponents(boolean show){
-        btnCancel.setVisible(show);
-        lblTime.setVisible(show);
-        lblChallenge.setVisible(show);
+        
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run() {
+                
+                btnCancel.setVisible(show);
+                lblTime.setVisible(show);
+                lblChallenge.setVisible(show);
+                
+            }
+
+        });
     }
     
     private class MenuListener implements ActionListener {
@@ -207,7 +243,9 @@ public class MainLobby extends javax.swing.JFrame {
                     
                     // CHALLENGE player code
                     s.writeObject(new SystemMessage(MsgType.Challenge, s.getPlayer().getUserName(),
-                            ((Player) listModel.getElementAt(listPlayers.getSelectedIndex())).getID()));
+                            ((Player) arrPlayers.get(listPlayers.getSelectedIndex())).getID()));
+                    showChallengeComponents(true);
+                    challengePending  = true;
                     
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -317,10 +355,15 @@ public class MainLobby extends javax.swing.JFrame {
         lblChallenge.setText("Challenge Pending: ");
 
         btnCancel.setText("Cancel Challenge");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         lblTime.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblTime.setForeground(new java.awt.Color(255, 0, 0));
-        lblTime.setText("60");
+        lblTime.setText("30");
 
         lblCount.setText("0");
 
@@ -445,9 +488,15 @@ public class MainLobby extends javax.swing.JFrame {
         
         // If Right Click, then show popup menu
         if (evt.isPopupTrigger()) {
-            listPlayers.setSelectedIndex(listPlayers.locationToIndex(evt.getPoint()));
-            if (((Player) listModel.getElementAt(listPlayers.getSelectedIndex())).isMe() || 
-                    ((Player) listModel.getElementAt(listPlayers.getSelectedIndex())).getStatus() != Status.InLobby) {
+            
+            int index = listPlayers.locationToIndex(evt.getPoint());
+            if (index < 0) { return; }
+            
+            
+            listPlayers.setSelectedIndex(index);
+            
+            if (((Player) arrPlayers.get(index)).isMe() || challengePending ||
+                    ((Player) arrPlayers.get(index)).getStatus() != Status.InLobby) {
                 itemChallenge.setEnabled(false);
             } else {
                 itemChallenge.setEnabled(true);
@@ -458,6 +507,11 @@ public class MainLobby extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_listPlayersMouseReleased
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        showChallengeComponents(false);
+        challengePending = false;
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

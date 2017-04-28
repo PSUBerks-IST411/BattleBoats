@@ -13,7 +13,7 @@ import javax.swing.JList;
  */
 public class MyCellRenderer extends DefaultListCellRenderer {
     
-    private Player myPlayer;
+    private final Player myPlayer;
     
     public MyCellRenderer(Player myPlayer){
         this.myPlayer = myPlayer;
