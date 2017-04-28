@@ -5,6 +5,7 @@ import battleboats.internet.Player;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
@@ -40,7 +41,16 @@ public class jfChallenge extends javax.swing.JFrame {
     
     private void accept(){
         
+        JFrame gameDisplay = new JFrame("Battle Boats!");
+        gameDisplay.add(new GameDisplay());
+        gameDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameDisplay.setResizable(false);
+        gameDisplay.setVisible(true);
         
+        gameDisplay.pack();
+        gameDisplay.setLocationRelativeTo(null);
+        
+        ((Window) getRootPane().getParent()).dispose();
         
     }
     
