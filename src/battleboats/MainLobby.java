@@ -9,6 +9,7 @@ import battleboats.internet.Player;
 import battleboats.internet.Player.Status;
 import battleboats.internet.SocketHandler;
 import battleboats.messages.*;
+import battleboats.messages.ChallengeMessage.CAction;
 import battleboats.messages.SystemMessage.MsgType;
 import java.awt.Font;
 import java.awt.event.*;
@@ -23,6 +24,8 @@ import javax.swing.*;
  */
 public class MainLobby extends javax.swing.JFrame {
 
+    private MainLobby mainLobby;
+    
     private SocketHandler s;
     
     private volatile DefaultListModel listModel;
@@ -37,6 +40,7 @@ public class MainLobby extends javax.swing.JFrame {
     private CopyOnWriteArrayList<Player> arrPlayers = new CopyOnWriteArrayList<>();
     private volatile boolean running = true;
     private volatile boolean challengePending = false;
+    private volatile boolean inGame = false;
     
     
     /**
@@ -45,6 +49,7 @@ public class MainLobby extends javax.swing.JFrame {
     public MainLobby(SocketHandler s) {
         
         this.s = s;
+        mainLobby = this;
         
         initComponents();
         buildPopupMenu();
@@ -124,21 +129,54 @@ public class MainLobby extends javax.swing.JFrame {
                                 txtChat.setText(chatText.toString());
                                 scrollDown();
                                 break;
-                            case Challenge:
+                            /*case Challenge:
                                 
-                                new jfChallenge(s.getPlayer()).setVisible(true);
+                                new jfChallenge(s.getPlayer());
                                 chatText.append("<b>You have received a challenge from ");
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("!</b><br />");
                                 txtChat.setText(chatText.toString());
                                 scrollDown();
                                 
-                                break;
+                                break;*/
                             default:
                                 break;
                         }
                     } else if (newMsg instanceof PlayerStatusUpdate) {
                         updatePlayerStatus((PlayerStatusUpdate) newMsg);
+                        
+                    } else if (newMsg instanceof ChallengeMessage) {
+                        ChallengeMessage cMsg = (ChallengeMessage) newMsg;
+                        
+                        switch (cMsg.getAction()) {
+                            
+                            case Request:
+                                new jfChallenge(cMsg, mainLobby);
+                                chatText.append("<b>You have received a challenge from ");
+                                chatText.append(cMsg.getChallenger().getUserName());
+                                chatText.append("!</b><br />");
+                                txtChat.setText(chatText.toString());
+                                scrollDown();
+                                break;
+                                
+                            case Decline:
+                                chatText.append("<b>Challenge Declined!</b><br />");
+                                txtChat.setText(chatText.toString());
+                                scrollDown();
+                                showChallengeComponents(false);
+                                challengePending = false;
+                                break;
+                                
+                            case Accept:
+                                
+                                acceptChallenge(cMsg.getChallenged());
+                                
+                                
+                                
+                                break;
+                            default:
+                                break;
+                        }
                         
                     }
                     
@@ -156,9 +194,45 @@ public class MainLobby extends javax.swing.JFrame {
         txtChat.setCaretPosition(txtChat.getDocument().getLength());
     }
     
+    protected void acceptChallenge(Player opponent){
+        
+        challengePending = false;
+        showChallengeComponents(false);
+        inGame = true;
+        
+        
+        
+        
+        
+        
+        
+        
+        JFrame gameDisplay = new JFrame("Battle Boats!");
+        gameDisplay.add(new GameDisplay(s, opponent));
+        gameDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameDisplay.setResizable(false);
+        gameDisplay.setVisible(true);
+        
+        gameDisplay.pack();
+        gameDisplay.setLocationRelativeTo(null);
+        
+    }
+    
     private void challengePlayer(){
         
+        btnChallenge.setEnabled(false);
         
+        try {
+            sendData(new ChallengeMessage(CAction.Request,
+                    arrPlayers.get(listPlayers.getSelectedIndex())));
+            
+            showChallengeComponents(true);
+            challengePending  = true;
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            btnChallenge.setEnabled(true);
+        }
         
     }
     
@@ -223,7 +297,7 @@ public class MainLobby extends javax.swing.JFrame {
             @Override
             public void run() {
                 
-                btnCancel.setVisible(show);
+                
                 lblTime.setVisible(show);
                 lblChallenge.setVisible(show);
                 
@@ -239,21 +313,16 @@ public class MainLobby extends javax.swing.JFrame {
             // Menu action
             if ("Challenge".equals(ae.getActionCommand())) {
                 
-                try {
-                    
-                    // CHALLENGE player code
-                    s.writeObject(new SystemMessage(MsgType.Challenge, s.getPlayer().getUserName(),
-                            ((Player) arrPlayers.get(listPlayers.getSelectedIndex())).getID()));
-                    showChallengeComponents(true);
-                    challengePending  = true;
-                    
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                // CHALLENGE player code
+                //sendData(new SystemMessage(MsgType.Challenge, s.getPlayer().getUserName(),
+                //        ((Player) arrPlayers.get(listPlayers.getSelectedIndex())).getID()));
+                
+                challengePlayer();
                 
             } else if ("View Profile".equals(ae.getActionCommand())) {
                 
                 // PROFILE code
+                jfProfile profile = new jfProfile(arrPlayers.get(listPlayers.getSelectedIndex()));
                 
             }
         }
@@ -274,6 +343,9 @@ public class MainLobby extends javax.swing.JFrame {
         
     }
     
+    protected synchronized void sendData(Object toSend) throws IOException{
+        s.writeObject(toSend);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -296,7 +368,7 @@ public class MainLobby extends javax.swing.JFrame {
         btnAI = new javax.swing.JButton();
         btnProfile = new javax.swing.JButton();
         lblChallenge = new javax.swing.JLabel();
-        btnCancel = new javax.swing.JButton();
+        btnChallenge = new javax.swing.JButton();
         lblTime = new javax.swing.JLabel();
         lblCount = new javax.swing.JLabel();
 
@@ -348,16 +420,21 @@ public class MainLobby extends javax.swing.JFrame {
         btnAI.setEnabled(false);
 
         btnProfile.setText("View Your Profile");
-        btnProfile.setEnabled(false);
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
 
         lblChallenge.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblChallenge.setForeground(new java.awt.Color(255, 0, 0));
         lblChallenge.setText("Challenge Pending: ");
 
-        btnCancel.setText("Cancel Challenge");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnChallenge.setText("Challenge");
+        btnChallenge.setEnabled(false);
+        btnChallenge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnChallengeActionPerformed(evt);
             }
         });
 
@@ -399,7 +476,7 @@ public class MainLobby extends javax.swing.JFrame {
                             .addComponent(lblPlayersOnline)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(lblCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(btnChallenge, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
         );
         jpMainLobbyLayout.setVerticalGroup(
@@ -416,7 +493,7 @@ public class MainLobby extends javax.swing.JFrame {
                     .addGroup(jpMainLobbyLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jpMainLobbyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancel)
+                            .addComponent(btnChallenge)
                             .addComponent(lblChallenge)
                             .addComponent(lblTime))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -472,7 +549,7 @@ public class MainLobby extends javax.swing.JFrame {
             chatText.append(txtSend.getText());
             chatText.append("<br /> ");
             txtChat.setText(chatText.toString());
-            s.writeObject(new SystemMessage(MsgType.LobbyChat, txtSend.getText()));
+            sendData(new SystemMessage(MsgType.LobbyChat, txtSend.getText()));
             
             txtSend.setText("");
         } catch (IOException ex) {
@@ -486,21 +563,27 @@ public class MainLobby extends javax.swing.JFrame {
 
     private void listPlayersMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPlayersMouseReleased
         
+        int index = listPlayers.locationToIndex(evt.getPoint());
+        if (index < 0) { return; }
+        
+        if (((Player) arrPlayers.get(index)).isMe() || challengePending || inGame ||
+                ((Player) arrPlayers.get(index)).getStatus() != Status.InLobby) {
+            itemChallenge.setEnabled(false);
+            btnChallenge.setEnabled(false);
+        } else {
+            itemChallenge.setEnabled(true);
+            btnChallenge.setEnabled(true);
+        }
+
         // If Right Click, then show popup menu
         if (evt.isPopupTrigger()) {
             
-            int index = listPlayers.locationToIndex(evt.getPoint());
-            if (index < 0) { return; }
+            
             
             
             listPlayers.setSelectedIndex(index);
             
-            if (((Player) arrPlayers.get(index)).isMe() || challengePending ||
-                    ((Player) arrPlayers.get(index)).getStatus() != Status.InLobby) {
-                itemChallenge.setEnabled(false);
-            } else {
-                itemChallenge.setEnabled(true);
-            }
+            
             
             popupMenu.show(this.listPlayers, evt.getX(), evt.getY());
         }
@@ -508,15 +591,18 @@ public class MainLobby extends javax.swing.JFrame {
         
     }//GEN-LAST:event_listPlayersMouseReleased
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        showChallengeComponents(false);
-        challengePending = false;
-    }//GEN-LAST:event_btnCancelActionPerformed
+    private void btnChallengeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChallengeActionPerformed
+        challengePlayer();
+    }//GEN-LAST:event_btnChallengeActionPerformed
+
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+        jfProfile profile = new jfProfile(s.getPlayer());
+    }//GEN-LAST:event_btnProfileActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAI;
-    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChallenge;
     private javax.swing.JButton btnProfile;
     private javax.swing.JButton btnRandom;
     private javax.swing.JButton btnSend;

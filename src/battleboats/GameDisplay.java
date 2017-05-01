@@ -1,6 +1,8 @@
 
 package battleboats;
 
+import battleboats.internet.Player;
+import battleboats.internet.SocketHandler;
 import battleboats.ships.Ship;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -29,26 +31,43 @@ public class GameDisplay extends JPanel {
     private JLabel lblCarrier, lblBattleship, lblDestroyer, lblSub, lblBoat;
     private String strSelected = "";
     
+    
+    private JButton btnStart;
+    
+    
+    private SocketHandler s;
+    private Player opponent;
+    
     private boolean running = true;
     
     /**
      * Creates new form newGameBoard
      */
-    public GameDisplay() {
+    public GameDisplay(SocketHandler s, Player opponent) {
+        
+        initComponents();
+        
+        this.s = s;
+        this.opponent = opponent;
+        
+        gameLoopThread.start();
+        
+    }
+    
+    public GameDisplay(){
         
         initComponents();
         
         gameLoopThread.start();
-        
     }
     
     private void initComponents(){
         
         this.setLayout(null);
         
-        setPreferredSize(new Dimension(1500, 950));
-        setMaximumSize(new Dimension(1500, 950));
-        setMinimumSize(new Dimension(1500, 950));
+        setPreferredSize(new Dimension(1500, 900));
+        setMaximumSize(new Dimension(1500, 900));
+        setMinimumSize(new Dimension(1500, 900));
         
         
         add(defBoard);
@@ -168,6 +187,7 @@ public class GameDisplay extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e){
             
+            if (!((JLabel)e.getSource()).isEnabled()) { return; }
             ((JLabel) e.getSource()).setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.RED, Color.BLACK));
             
         }
@@ -175,9 +195,9 @@ public class GameDisplay extends JPanel {
         @Override
         public void mouseExited(MouseEvent e){
             
-            if (!defBoard.getAShip(Ship.valueOf(((JLabel) e.getSource()).getName())).isPlaced()) {
-                ((JLabel) e.getSource()).setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            }
+            if (!((JLabel)e.getSource()).isEnabled()) { return; }
+            
+            ((JLabel) e.getSource()).setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             
         }
         
@@ -187,6 +207,9 @@ public class GameDisplay extends JPanel {
             strSelected = ((JLabel) e.getSource()).getName();
 
             defBoard.setSelectedShip(Ship.valueOf(strSelected));
+            
+            Assets.clipPickup.setFramePosition(0);
+            Assets.clipPickup.start();
             
         }
         
@@ -220,6 +243,26 @@ public class GameDisplay extends JPanel {
                 }
             }
         
+    }
+    
+    public JLabel getLblCarrier(){
+        return lblCarrier;
+    }
+    
+    public JLabel getLblDestroyer(){
+        return lblDestroyer;
+    }
+    
+    public JLabel getLblSub(){
+        return lblSub;
+    }
+    
+    public JLabel getLblBoat(){
+        return lblBoat;
+    }
+    
+    public JLabel getLblBattleship(){
+        return lblBattleship;
     }
     
 }

@@ -38,7 +38,7 @@ public class SocketHandler {
     }
     
     
-    public void writeObject(Object objectIn) throws IOException{
+    public synchronized void writeObject(Object objectIn) throws IOException{
         outStream.writeObject(objectIn);
         outStream.flush();
     }

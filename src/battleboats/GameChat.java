@@ -25,8 +25,8 @@ public class GameChat extends JPanel {
         
         this.setLayout(null);
         this.setBackground(Color.DARK_GRAY);
-        this.setPreferredSize(new Dimension(1500, 300));
-        this.setBounds(0, 650, 1500, 300);
+        this.setPreferredSize(new Dimension(1500, 250));
+        this.setBounds(0, 650, 1500, 250);
         
         lblTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
         

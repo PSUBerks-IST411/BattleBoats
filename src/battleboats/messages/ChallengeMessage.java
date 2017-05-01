@@ -28,4 +28,20 @@ public class ChallengeMessage implements Serializable {
         this.challenger = challenger;
     }
     
+    public CAction getAction(){
+        return action;
+    }
+    
+    public void setAction(CAction action){
+        this.action = action;
+    }
+    
+    public Player getChallenger(){
+        return challenger;
+    }
+    
+    public Player getChallenged(){
+        return challenged;
+    }
+    
 }

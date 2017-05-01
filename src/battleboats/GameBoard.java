@@ -233,12 +233,37 @@ public class GameBoard extends JPanel {
         
     }
     
+    private void labelEnable(int ship, boolean enabled){
+        
+        switch (ship) {
+                case Ship.CARRIER:
+                    newGD.getLblCarrier().setEnabled(enabled);
+                    break;
+                case Ship.DESTROYER:
+                    newGD.getLblDestroyer().setEnabled(enabled);
+                    break;
+                case Ship.PATROLBOAT:
+                    newGD.getLblBoat().setEnabled(enabled);
+                    break;
+                case Ship.SUBMARINE:
+                    newGD.getLblSub().setEnabled(enabled);
+                    break;
+                case Ship.BATTLESHIP:
+                    newGD.getLblBattleship().setEnabled(enabled);
+                    break;
+                default:
+                    break;
+            }
+        
+    }
+    
     private void placeShip(){
         
         if (checkPlacement()) {
             
             arrShip[intSelectedShip].setPlaced(true);
-                
+            labelEnable(intSelectedShip, false);
+            
             intSelectedShip = -1; // Deselect ship after placement
             
         } else {
@@ -312,6 +337,8 @@ public class GameBoard extends JPanel {
         
         if (selectedShip > -1 && arrShip[selectedShip].isPlaced()) {
             arrShip[selectedShip].setPlaced(false);
+            labelEnable(selectedShip, true);
+            
             Assets.clipPickup.setFramePosition(0);
             Assets.clipPickup.start();
         }

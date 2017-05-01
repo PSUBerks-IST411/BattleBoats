@@ -7,11 +7,13 @@ import battleboats.internet.Player;
 import battleboats.internet.Player.Status;
 import battleboats.internet.SocketHandler;
 import battleboats.messages.*;
+import battleboats.messages.ChallengeMessage.CAction;
 import battleboats.messages.PlayerListMessage.PlayerListAction;
 import battleboats.messages.SystemMessage.MsgType;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -125,7 +127,7 @@ public class Server {
                             case LobbyChat:
                                 sendChat(sysMsg.getMessage(), s.getPlayer().getUserName(), s);
                                 break;
-                            case Challenge:
+                            /*case Challenge:
                                 sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InQueue), null);
                                 updateClientStatus(s, Status.InQueue);
                                 sendTo(new SystemMessage(MsgType.Challenge, s.getPlayer().getUserName(),
@@ -135,7 +137,7 @@ public class Server {
                                 // Probably start a new thread here awaiting responce
                                 // 60 second time-out (kill thread if no action)
                                 
-                                break;
+                                break;*/
                             default:
                                 break;
                         }
@@ -156,6 +158,41 @@ public class Server {
                             s.writeObject(new SystemMessage(MsgType.AccountCreation, false, 
                                     "The Username you have selected is already taken."));
                         }
+                        
+                    } else if (newMsg instanceof ChallengeMessage) {
+                        ChallengeMessage cMsg = (ChallengeMessage) newMsg;
+                        
+                        switch (cMsg.getAction()) {
+                            
+                            case Request:
+                                cMsg.setChallenger(s.getPlayer());
+                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InQueue), null);
+                                updateClientStatus(s, Status.InQueue);
+                                sendTo(cMsg, cMsg.getChallenged().getID());
+                                break;
+                                
+                            case Decline:
+                                sendTo(cMsg, cMsg.getChallenger().getID());
+                                sendToAll(new PlayerStatusUpdate(cMsg.getChallenger().getID(), Status.InLobby), null);
+                                updateClientStatus(cMsg.getChallenger(), Status.InLobby);
+                                
+                                //JOptionPane.showMessageDialog(null, "Declinedddddd");
+                                break;
+                                
+                            case Accept:
+                                
+                                sendTo(cMsg, cMsg.getChallenger().getID());
+                                updateClientStatus(cMsg.getChallenged(), Status.InGame);
+                                updateClientStatus(cMsg.getChallenger(), Status.InGame);
+                                
+                                sendToAll(new PlayerStatusUpdate(cMsg.getChallenged().getID(), Status.InGame), null);
+                                sendToAll(new PlayerStatusUpdate(cMsg.getChallenger().getID(), Status.InGame), null);
+                                
+                                break;
+                            default:
+                                break;
+                        }
+                        
                         
                     }
                     
@@ -235,6 +272,16 @@ public class Server {
         
         for (SocketHandler client : lobbyClients) {
             if (client == s) {
+                client.getPlayer().setStatus(status);
+            }
+        }
+        
+    }
+    
+    private synchronized void updateClientStatus(Player player, Status status){
+        
+        for (SocketHandler client : lobbyClients) {
+            if (client.getPlayer() == player) {
                 client.getPlayer().setStatus(status);
             }
         }

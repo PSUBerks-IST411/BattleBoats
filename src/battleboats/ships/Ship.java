@@ -108,4 +108,21 @@ public class Ship {
         }
     }
     
+    public static int valueOf(int inputInt){
+        switch (inputInt){
+            case 0:
+                return CARRIER;
+            case 1:
+                return BATTLESHIP;
+            case 2:
+                return DESTROYER;
+            case 3:
+                return SUBMARINE;
+            case 4:
+                return PATROLBOAT;
+            default:
+                return -1;
+        }
+    }
+    
 }

@@ -2,9 +2,11 @@
 package battleboats;
 
 import battleboats.internet.Player;
+import battleboats.messages.ChallengeMessage;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -14,6 +16,8 @@ import javax.swing.Timer;
  */
 public class jfChallenge extends javax.swing.JFrame {
 
+    private MainLobby mainLobby;
+    private ChallengeMessage cMsg;
     private Timer timer = new Timer(1000, new TimeListener());
     private int intTime = 30;
     
@@ -21,11 +25,15 @@ public class jfChallenge extends javax.swing.JFrame {
     /**
      * Creates new form jfChallenge
      */
-    public jfChallenge(Player player) {
+    public jfChallenge(ChallengeMessage cMsg, MainLobby mainLobby) {
         initComponents();
+        setVisible(true);
         setLocationRelativeTo(null);
         
-        setInfo(player);
+        this.mainLobby = mainLobby;
+        this.cMsg = cMsg;
+        
+        setInfo(cMsg.getChallenger());
         timer.start();
     }
 
@@ -41,20 +49,32 @@ public class jfChallenge extends javax.swing.JFrame {
     
     private void accept(){
         
-        JFrame gameDisplay = new JFrame("Battle Boats!");
-        gameDisplay.add(new GameDisplay());
-        gameDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        gameDisplay.setResizable(false);
-        gameDisplay.setVisible(true);
+        cMsg.setAction(ChallengeMessage.CAction.Accept);
+        try {
+            
+            mainLobby.sendData(cMsg);
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
-        gameDisplay.pack();
-        gameDisplay.setLocationRelativeTo(null);
+        mainLobby.acceptChallenge(cMsg.getChallenger());
         
         ((Window) getRootPane().getParent()).dispose();
         
     }
     
     private void decline(){
+        
+        cMsg.setAction(ChallengeMessage.CAction.Decline);
+        
+        try {
+            
+            mainLobby.sendData(cMsg);
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
         ((Window) getRootPane().getParent()).dispose();
         
@@ -101,6 +121,11 @@ public class jfChallenge extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Incoming Challenge!");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lblIncoming.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblIncoming.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -217,13 +242,20 @@ public class jfChallenge extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
+        timer.stop();
         decline();
     }//GEN-LAST:event_btnDeclineActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         // Accept Challenge
+        timer.stop();
         accept();
     }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        timer.stop();
+        decline();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
