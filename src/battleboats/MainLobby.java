@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+// MainLobby - This will b e the main 'control center' for the game
+
 package battleboats;
 
 import battleboats.internet.Player;
@@ -25,6 +23,8 @@ import javax.swing.*;
 public class MainLobby extends javax.swing.JFrame {
 
     private MainLobby mainLobby;
+    private JFrame gameFrame;
+    private GameDisplay gameDisplay;
     
     private SocketHandler s;
     
@@ -34,6 +34,10 @@ public class MainLobby extends javax.swing.JFrame {
     
     private JPopupMenu popupMenu = new JPopupMenu();
     private JMenuItem itemChallenge, itemProfile;
+    
+    private final int CHALLENGE_WAIT_TIME = 30;
+    private Timer challengeTime = new Timer(1000, new ChallengeTimeListener());
+    private int intTime = CHALLENGE_WAIT_TIME;
     
     private StringBuffer chatText = new StringBuffer();
     
@@ -88,10 +92,12 @@ public class MainLobby extends javax.swing.JFrame {
                     if (newMsg instanceof PlayerListMessage) {
                         PlayerListMessage plMsg = (PlayerListMessage) newMsg;
                         switch (plMsg.getPLAction()) {
+                            
                             case EntireList:
                                 arrPlayers = plMsg.getPlayers();
                                 refreshPlayerList(true);
                                 break;
+                                
                             case Remove:
                                 // Shouldn't need to re-sort
                                 arrPlayers.remove(plMsg.getPlayer());
@@ -107,6 +113,7 @@ public class MainLobby extends javax.swing.JFrame {
                                 });
                                 
                                 break;
+                                
                             case Add:
                                 arrPlayers.add(plMsg.getPlayer());
                                 refreshPlayerList(true);
@@ -117,28 +124,21 @@ public class MainLobby extends javax.swing.JFrame {
                     } else if (newMsg instanceof SystemMessage) {
                         SystemMessage sysMsg = (SystemMessage) newMsg;
                         switch (sysMsg.getMsgType()) {
+                            
                             case Event:
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("<br /> ");
                                 txtChat.setText(chatText.toString());
                                 scrollDown();
                                 break;
+                                
                             case LobbyChat:
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("<br /> ");
                                 txtChat.setText(chatText.toString());
                                 scrollDown();
                                 break;
-                            /*case Challenge:
-                                
-                                new jfChallenge(s.getPlayer());
-                                chatText.append("<b>You have received a challenge from ");
-                                chatText.append(sysMsg.getMessage());
-                                chatText.append("!</b><br />");
-                                txtChat.setText(chatText.toString());
-                                scrollDown();
-                                
-                                break;*/
+
                             default:
                                 break;
                         }
@@ -160,16 +160,12 @@ public class MainLobby extends javax.swing.JFrame {
                                 break;
                                 
                             case Decline:
-                                chatText.append("<b>Challenge Declined!</b><br />");
-                                txtChat.setText(chatText.toString());
-                                scrollDown();
-                                showChallengeComponents(false);
-                                challengePending = false;
+                                declineChallenge();
                                 break;
                                 
                             case Accept:
                                 
-                                acceptChallenge(cMsg.getChallenged());
+                                acceptChallenge(cMsg.getChallenger(), cMsg.getChallenged());
                                 
                                 
                                 
@@ -178,7 +174,13 @@ public class MainLobby extends javax.swing.JFrame {
                                 break;
                         }
                         
+                    } else if (newMsg instanceof GameMessage) {
+                        GameMessage gameMsg = (GameMessage) newMsg;
+                        if (gameDisplay != null) {
+                            gameDisplay.msgControl(gameMsg);
+                        }
                     }
+                    
                     
                 } catch (IOException | ClassNotFoundException ex) {
                     System.out.println("Connection Closed");
@@ -194,7 +196,21 @@ public class MainLobby extends javax.swing.JFrame {
         txtChat.setCaretPosition(txtChat.getDocument().getLength());
     }
     
-    protected void acceptChallenge(Player opponent){
+    private void declineChallenge(){
+        chatText.append("<b>Challenge Declined!</b><br />");
+        txtChat.setText(chatText.toString());
+        
+        scrollDown();
+        
+        showChallengeComponents(false);
+        challengePending = false;
+        
+        challengeTime.stop();
+        intTime = CHALLENGE_WAIT_TIME;
+        
+    }
+    
+    protected void acceptChallenge(Player me, Player opponent){
         
         challengePending = false;
         showChallengeComponents(false);
@@ -207,14 +223,14 @@ public class MainLobby extends javax.swing.JFrame {
         
         
         
-        JFrame gameDisplay = new JFrame("Battle Boats!");
-        gameDisplay.add(new GameDisplay(s, opponent));
-        gameDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        gameDisplay.setResizable(false);
-        gameDisplay.setVisible(true);
+        gameFrame = new JFrame("Battle Boats!");
+        gameFrame.add(gameDisplay = new GameDisplay(me, opponent, mainLobby));
+        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameFrame.setResizable(false);
+        gameFrame.setVisible(true);
         
-        gameDisplay.pack();
-        gameDisplay.setLocationRelativeTo(null);
+        gameFrame.pack();
+        gameFrame.setLocationRelativeTo(null);
         
     }
     
@@ -297,9 +313,12 @@ public class MainLobby extends javax.swing.JFrame {
             @Override
             public void run() {
                 
-                
                 lblTime.setVisible(show);
                 lblChallenge.setVisible(show);
+                if (show) { 
+                    lblTime.setText(String.valueOf(CHALLENGE_WAIT_TIME));
+                    challengeTime.start(); 
+                }
                 
             }
 
@@ -339,6 +358,22 @@ public class MainLobby extends javax.swing.JFrame {
                 btnSend.doClick();
                 ke.consume();
             }
+        }
+        
+    }
+    
+    private class ChallengeTimeListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            intTime--;
+            lblTime.setText(String.valueOf(intTime));
+            
+            if (intTime <= 0) {
+                challengeTime.stop();
+                intTime = CHALLENGE_WAIT_TIME; // Reset timer for future challenges
+            }
+            
         }
         
     }

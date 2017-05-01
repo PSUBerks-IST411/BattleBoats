@@ -2,11 +2,14 @@
 package battleboats;
 
 import battleboats.internet.Player;
-import battleboats.internet.SocketHandler;
+import battleboats.messages.GameMessage;
 import battleboats.ships.Ship;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
@@ -23,8 +26,6 @@ public class GameDisplay extends JPanel {
     
     private GameLoopThread gameLoopThread = new GameLoopThread();
     
-    //private ShipSelectListener shipSelectListener= new ShipSelectListener();
-    
     private JLabel[][] lblRow = new JLabel[2][10];
     private JLabel[][] lblCol = new JLabel[2][10];
     
@@ -32,10 +33,23 @@ public class GameDisplay extends JPanel {
     private String strSelected = "";
     
     
-    private JButton btnStart;
+    private final int SETUP_TIME = 60;
+    private final int TURN_TIME = 30;
+    private int intTime = SETUP_TIME;
+    private Timer turnTimer = new Timer(1000, new TurnListener());
+    
+    private JButton btnReady = new JButton("Ready!");
+    private JButton btnFire = new JButton("Fire!");
+    private JLabel lblTime = new JLabel(String.valueOf(intTime));
+    private JLabel lblTurn = new JLabel("Waiting for Opponent");
+    private JLabel lblPlace = new JLabel("Place your Ships!");
+    
+    private volatile boolean setUp = true;
+    private volatile boolean myTurn = true;
     
     
-    private SocketHandler s;
+    private MainLobby mainLobby;
+    private Player me;
     private Player opponent;
     
     private boolean running = true;
@@ -43,23 +57,45 @@ public class GameDisplay extends JPanel {
     /**
      * Creates new form newGameBoard
      */
-    public GameDisplay(SocketHandler s, Player opponent) {
+    public GameDisplay(Player me, Player opponent, MainLobby mainLobby) {
         
         initComponents();
         
-        this.s = s;
+        this.me = me;
         this.opponent = opponent;
+        this.mainLobby = mainLobby;
         
         gameLoopThread.start();
         
     }
     
+    // Empty constructor for UI testing
     public GameDisplay(){
         
         initComponents();
         
         gameLoopThread.start();
     }
+    
+    
+    protected void msgControl(GameMessage newMsg){
+        
+        
+        
+    }
+    
+    private void sendData(GameMessage toSend){
+        
+        try {
+            
+            mainLobby.sendData(toSend);
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+    
     
     private void initComponents(){
         
@@ -75,6 +111,7 @@ public class GameDisplay extends JPanel {
         
         add(attBoard);
         attBoard.setBounds(950, 50, 500, 500);
+        attBoard.setVisible(false);
         
         add(gameChat);
         
@@ -86,12 +123,14 @@ public class GameDisplay extends JPanel {
                 lblRow[j][i].setBounds(j * 900, (i * 50 + 50), 50, 50);
                 lblRow[j][i].setHorizontalAlignment(JLabel.CENTER);
                 lblRow[j][i].setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                lblRow[j][i].setVisible(false);
                 add(lblRow[j][i]);
 
                 lblCol[j][i] = new JLabel(String.valueOf(i + 1));
                 lblCol[j][i].setBounds((i * 50 + 50 + (j * 900)), 0, 50, 50);
                 lblCol[j][i].setHorizontalAlignment(JLabel.CENTER);
                 lblCol[j][i].setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                lblCol[j][i].setVisible(false);
                 add(lblCol[j][i]);
             }
         }
@@ -160,6 +199,23 @@ public class GameDisplay extends JPanel {
         lblBoat.addMouseMotionListener(new ShipSelectListener()); // Mouse Movements
         lblBoat.setName("Patrolboat");
         
+        
+        add(lblPlace);
+        lblPlace.setBounds(950, 200, 500, 100);
+        lblPlace.setHorizontalAlignment(JLabel.CENTER);
+        lblPlace.setFont(new Font(Font.DIALOG, Font.BOLD, 48));
+        
+        // TODO: Place timer and ready button under lblPlace
+        add(lblTime);
+        lblTime.setBounds(600, 550, 260, 50);
+        lblTime.setHorizontalAlignment(JLabel.CENTER);
+        lblTime.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+        lblTime.setForeground(Color.RED);
+        
+        add(btnReady);
+        btnReady.setBounds(200, 570, 200, 40);
+        
+        turnTimer.start();
     }
     
     public void updateLabels(int intCol, int intRow, int intOldCol, int intOldRow, int intBoard){
@@ -215,7 +271,30 @@ public class GameDisplay extends JPanel {
         
     }
     
-    public class GameLoopThread extends Thread implements Runnable {
+    
+    private class TurnListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            
+            // This timer will keep track of turns and setup time
+            if (setUp) {
+                intTime--;
+                lblTime.setText(String.valueOf(intTime));
+                
+                if (intTime <= 0) {
+                    // Player ran out of time and forfeit the game
+                    turnTimer.stop();
+                }
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    private class GameLoopThread extends Thread implements Runnable {
         
         @Override
             public void run() {
