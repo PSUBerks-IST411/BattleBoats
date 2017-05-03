@@ -206,8 +206,10 @@ public class GameDisplay extends JPanel {
         
         resetTimer();
         
-        Assets.clipTurn.setFramePosition(0);
-        Assets.clipTurn.start();
+        if (isMyTurn) {
+            Assets.clipTurn.setFramePosition(0);
+            Assets.clipTurn.start();
+        }
         
     }
     
