@@ -8,6 +8,7 @@ import battleboats.internet.Player.Status;
 import battleboats.internet.SocketHandler;
 import battleboats.messages.*;
 import battleboats.messages.ChallengeMessage.CAction;
+import battleboats.messages.GameMessage.GameAction;
 import battleboats.messages.PlayerListMessage.PlayerListAction;
 import battleboats.messages.SystemMessage.MsgType;
 import java.io.IOException;
@@ -194,6 +195,83 @@ public class Server {
                         }
                         
                         
+                    } else if (newMsg instanceof GameMessage) {
+                        GameMessage gameMsg = (GameMessage) newMsg;
+                        
+                        switch (gameMsg.getAction()) {
+                            case Forfeit:
+                                // Notify the other client of forfeit
+                                sendTo(gameMsg, gameMsg.getToPlayer().getID());
+                                
+                                // Make neccessary DB changes / UPDATE Player object
+                                // TODO: Need to properly update stats on clients
+                                db.updatePlayerWins(gameMsg.getToPlayer().getID(), gameMsg.getToPlayer().getWins() + 1);
+                                updateWins(gameMsg.getToPlayer().getID());
+                                
+                                db.updatePlayerForfeits(s.getPlayer().getID(), s.getPlayer().getForfeits() + 1);
+                                updateForfeits(s.getPlayer().getID());
+                                
+                                // Set status back to InLobby
+                                updateClientStatus(gameMsg.getToPlayer(), Status.InLobby);
+                                updateClientStatus(s.getPlayer(), Status.InLobby);
+                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), Status.InLobby), null);
+                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InLobby), null);
+                                break;
+                                
+                            case AFK:
+                                // Clients will automatically close out
+                                // Update client status accordingly
+                                updateClientStatus(gameMsg.getToPlayer(), Status.InLobby);
+                                updateClientStatus(s.getPlayer(), Status.InLobby);
+                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), Status.InLobby), null);
+                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InLobby), null);
+                                break;
+                                
+                            case Ready:
+                            case SkipTurn:
+                            case Shot:
+                            case Result_Hit:
+                            case Result_Miss:
+                            case ShipSank:
+                                // These messages will get directly routed to the other client
+                                sendTo(gameMsg, gameMsg.getToPlayer().getID());
+                                break;
+                                
+                            case RequestTurn:
+                                // Generate random number to select who goes first
+                                double turn = Math.ceil(Math.random() * 2);
+                                if (turn == 1) {
+                                    sendTo(new GameMessage(GameAction.First), gameMsg.getToPlayer().getID());
+                                    sendTo(new GameMessage(GameAction.Second), s.getPlayer().getID());
+                                } else {
+                                    sendTo(new GameMessage(GameAction.First), s.getPlayer().getID());
+                                    sendTo(new GameMessage(GameAction.Second), gameMsg.getToPlayer().getID());
+                                }
+                                break;
+                                
+                            case AllShipsSunk:
+                                // Notify the player they won
+                                sendTo(gameMsg, gameMsg.getToPlayer().getID());
+                                
+                                // Perform Database updates / Update Player object
+                                db.updatePlayerWins(gameMsg.getToPlayer().getID(), gameMsg.getToPlayer().getWins() + 1);
+                                updateWins(gameMsg.getToPlayer().getID());
+                                
+                                db.updatePlayerLosses(s.getPlayer().getID(), s.getPlayer().getLosses() + 1);
+                                updateLosses(s.getPlayer().getID());
+                                
+                                // Update statuses to InLobby
+                                updateClientStatus(gameMsg.getToPlayer(), Status.InLobby);
+                                updateClientStatus(s.getPlayer(), Status.InLobby);
+                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), Status.InLobby), null);
+                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InLobby), null);
+                                break;
+                                
+                            default:
+                                break;
+                        }
+                        
+                        
                     }
                     
                 
@@ -231,6 +309,46 @@ public class Server {
         }
         
         
+    }
+    
+    private synchronized void updateWins(int playerID){
+        
+        for (SocketHandler clients : lobbyClients) {
+            if (clients.getPlayer().getID() == playerID) {
+                clients.getPlayer().addWin();
+                break;
+            }
+        }
+    }
+    
+    private synchronized void updateLosses(int playerID){
+        
+        for (SocketHandler clients : lobbyClients) {
+            if (clients.getPlayer().getID() == playerID) {
+                clients.getPlayer().addLoss();
+                break;
+            }
+        }
+    }
+    
+    private synchronized void updateForfeits(int playerID){
+        
+        for (SocketHandler clients : lobbyClients) {
+            if (clients.getPlayer().getID() == playerID) {
+                clients.getPlayer().addForfeit();
+                break;
+            }
+        }
+    }
+    
+    private synchronized Status getPlayerStatus(int playerID){
+        
+        for (SocketHandler clients : lobbyClients) {
+            if (clients.getPlayer().getID() == playerID) {
+                return clients.getPlayer().getStatus();
+            }
+        }
+        return Status.Offline;
     }
     
     private synchronized void sendTo(Object message, int intToID) throws IOException{

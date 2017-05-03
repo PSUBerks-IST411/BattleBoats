@@ -118,6 +118,7 @@ public class MainLobby extends javax.swing.JFrame {
                                 arrPlayers.add(plMsg.getPlayer());
                                 refreshPlayerList(true);
                                 break;
+                                
                             default:
                                 break;
                         }
@@ -228,6 +229,7 @@ public class MainLobby extends javax.swing.JFrame {
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setResizable(false);
         gameFrame.setVisible(true);
+        gameFrame.addWindowListener(new GameWindowListener());
         
         gameFrame.pack();
         gameFrame.setLocationRelativeTo(null);
@@ -260,7 +262,7 @@ public class MainLobby extends javax.swing.JFrame {
                 break;
             }
         }
-        System.out.println("updated");
+        //System.out.println("updated");
         refreshPlayerList(false);
     }
     
@@ -283,7 +285,7 @@ public class MainLobby extends javax.swing.JFrame {
                     listModel.addElement(player);
                 });
                 lblCount.setText(String.valueOf(arrPlayers.size()));
-                System.out.println("displayed");
+                //System.out.println("displayed");
             }
             
         });
@@ -325,6 +327,14 @@ public class MainLobby extends javax.swing.JFrame {
         });
     }
     
+    public void setInGame(boolean inGame){
+        this.inGame = inGame;
+    }
+    
+    protected SocketHandler getS(){
+        return s;
+    }
+    
     private class MenuListener implements ActionListener {
 
         @Override
@@ -358,6 +368,18 @@ public class MainLobby extends javax.swing.JFrame {
                 btnSend.doClick();
                 ke.consume();
             }
+        }
+        
+    }
+    
+    private class GameWindowListener extends WindowAdapter {
+
+        @Override
+        public void windowClosing(WindowEvent we) {
+            inGame = false;
+            gameDisplay.turnTimer.stop();
+            gameDisplay.playerForfeit();
+            s.getPlayer().addForfeit();
         }
         
     }
@@ -601,6 +623,7 @@ public class MainLobby extends javax.swing.JFrame {
         int index = listPlayers.locationToIndex(evt.getPoint());
         if (index < 0) { return; }
         
+        System.out.println("Challenge Pending = " + challengePending + " ingame = " + inGame);
         if (((Player) arrPlayers.get(index)).isMe() || challengePending || inGame ||
                 ((Player) arrPlayers.get(index)).getStatus() != Status.InLobby) {
             itemChallenge.setEnabled(false);

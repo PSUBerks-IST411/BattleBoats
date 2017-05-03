@@ -2,6 +2,7 @@
 package battleboats.ships;
 
 import battleboats.Assets;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -33,6 +34,7 @@ public class Ship {
     private Rectangle shipSpot = new Rectangle();
     
     private int unitWidth = 50, unitHeight = 50;
+    private int hits = 0;
     
     
     public Ship(int intSize, BufferedImage[] boatImage) {
@@ -43,6 +45,20 @@ public class Ship {
         setDimensions();
         
     }
+    
+    
+    public boolean isHit(Point point){
+        if (shipSpot.contains(point)) {
+            hits++;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isSank(){
+        return hits >= intSize;
+    }
+    
     
     private void setDimensions(){
         

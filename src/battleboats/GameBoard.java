@@ -17,6 +17,14 @@ public class GameBoard extends JPanel {
     
     private boolean running = true;
     
+    public static final short DEFENSE_BOARD = 0;
+    public static final short ATTACK_BOARD = 1;
+    
+    private short[][] shotsTaken = new short[10][10];
+        public static final short NONE = 0;
+        public static final short MISS = 1;
+        public static final short HIT = 2;
+    
     private boolean isPainted = false;
     private int mouseX = -1, mouseY = -1;
     
@@ -28,18 +36,19 @@ public class GameBoard extends JPanel {
     private Color colorSquare;
     
     private GameDisplay newGD;
-    private int intBoard; // To identify which labels to update, 0 for def, 1 for attack
+    private final short shortBoard; // To identify which labels to update, 0 for def, 1 for attack
     
     private Ship[] arrShip = new Ship[5]; // 5 ships per board
+    private Missile missile = new Missile(); // Missile
     
     private int intSelectedShip = -1;
     
     BufferedImage imgWaterCrop;
     
-    public GameBoard(GameDisplay newGD, int intBoard) {
+    public GameBoard(GameDisplay newGD, short shortBoard) {
         
         this.newGD = newGD;
-        this.intBoard = intBoard;
+        this.shortBoard = shortBoard;
         
         createShips();
         
@@ -77,7 +86,16 @@ public class GameBoard extends JPanel {
         }
         
         paintShips(g);
+        paintHits(g);
         
+        
+        if (isPainted && shortBoard == ATTACK_BOARD && newGD.isMyTurn() && !missile.isPlaced()) {
+            g.drawImage(Assets.imgMissile, mouseX, mouseY, null);
+        }
+        
+        if (shortBoard == ATTACK_BOARD && newGD.isMyTurn() && missile.isPlaced()) {
+            g.drawImage(Assets.imgMissile, missile.getPosition().x, missile.getPosition().y, null);
+        }
         
         // Paint square under mouse pointer (also for testing)
         /*if (isPainted) {
@@ -114,6 +132,60 @@ public class GameBoard extends JPanel {
             }
             
         }
+        
+    }
+    
+    private void paintHits(Graphics g){
+        
+        for (int i = 0; i < 10; i++) {
+            
+            for (int j = 0; j < 10; j++) {
+                
+                if (shotsTaken[i][j] == MISS) {
+                    g.drawImage(Assets.imgX, i * 50, j * 50, null);
+                } else if (shotsTaken[i][j] == HIT) {
+                    g.drawImage(Assets.imgExplosion, i * 50, j * 50, null);
+                }
+            }
+        }
+        
+    }
+    
+    protected Point getMissileLoc(){
+        return new Point(missile.getPosition().x, missile.getPosition().y);
+    }
+    
+    protected Missile getMissile(){
+        return missile;
+    }
+    
+    protected boolean checkHit(Point location){
+        
+        int x = ((location.x - (location.x % 50)) / 50);
+        int y = ((location.y - (location.y % 50)) / 50);
+        
+        for (Ship arrShip1 : arrShip) {
+            if (arrShip1.isHit(location)) {
+                // Put in shotsTaken
+                shotsTaken[x][y] = HIT;
+                if (arrShip1.isSank()) {
+                    newGD.shipSank();
+                }
+                return true;
+            }
+        }
+        
+        // Put in a miss in shotsTaken
+        shotsTaken[x][y] = MISS;
+        return false;
+    }
+    
+    protected void setShotsTaken(Point location, short result){
+        
+        int x = (location.x - (location.x % 50)) / 50;
+        int y = (location.y - (location.y % 50)) / 50;
+        
+        shotsTaken[x][y] = result;
         
     }
     
@@ -171,7 +243,8 @@ public class GameBoard extends JPanel {
                     }
                 }
                 
-                newGD.updateLabels(mouseX / 50, mouseY / 50, oldMouseX / 50, oldMouseY / 50, intBoard);
+                newGD.updateLabels(mouseX / 50, mouseY / 50, oldMouseX / 50, oldMouseY / 50, shortBoard);
+                
                 
             }
             
@@ -185,7 +258,7 @@ public class GameBoard extends JPanel {
             mouseY = -1;
             isPainted = false;
             
-            newGD.clearLabelColor(intBoard);
+            newGD.clearLabelColor(shortBoard);
             
         }
         
@@ -210,6 +283,17 @@ public class GameBoard extends JPanel {
         
         @Override
         public void mousePressed(MouseEvent e){
+            
+            if (newGD.isMyTurn() && shortBoard == ATTACK_BOARD) {
+                missile.setPosition(mouseX, mouseY);
+                missile.setPlaced(true);
+                newGD.setFireEnabled(true);
+            }
+            
+            if (!newGD.isSetUp()) { return; } // Skip placement code
+            
+            
+            // For Ship placement -------------------------------------
             
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (intSelectedShip > -1) {
@@ -257,6 +341,23 @@ public class GameBoard extends JPanel {
         
     }
     
+    private void checkReady(){
+        
+        boolean isReady = true;
+        
+        for (Ship arrShip1 : arrShip) {
+            if (!arrShip1.isPlaced()) {
+                isReady = false;
+                break;
+            }
+        }
+        
+        if (isReady) {
+            newGD.updateReadyButton(isReady);
+        }
+        
+    }
+    
     private void placeShip(){
         
         if (checkPlacement()) {
@@ -265,6 +366,8 @@ public class GameBoard extends JPanel {
             labelEnable(intSelectedShip, false);
             
             intSelectedShip = -1; // Deselect ship after placement
+            
+            checkReady(); // Check if all ships have been placed
             
         } else {
             Assets.clipWrong.setFramePosition(0);
@@ -299,11 +402,7 @@ public class GameBoard extends JPanel {
         
         Rectangle rectBoard = new Rectangle(this.getWidth(), this.getHeight());
         
-        if (!rectBoard.contains(arrShip[intSelectedShip].getShipSpot())) {
-            return false;
-        }
-        
-        return true;
+        return rectBoard.contains(arrShip[intSelectedShip].getShipSpot());
         
     }
     
@@ -338,6 +437,8 @@ public class GameBoard extends JPanel {
         if (selectedShip > -1 && arrShip[selectedShip].isPlaced()) {
             arrShip[selectedShip].setPlaced(false);
             labelEnable(selectedShip, true);
+            
+            newGD.updateReadyButton(false);
             
             Assets.clipPickup.setFramePosition(0);
             Assets.clipPickup.start();

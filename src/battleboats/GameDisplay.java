@@ -3,6 +3,7 @@ package battleboats;
 
 import battleboats.internet.Player;
 import battleboats.messages.GameMessage;
+import battleboats.messages.GameMessage.GameAction;
 import battleboats.ships.Ship;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,10 +20,10 @@ import javax.swing.border.BevelBorder;
  */
 public class GameDisplay extends JPanel {
     
-    private GameBoard defBoard = new GameBoard(this, 0);
-    private GameBoard attBoard = new GameBoard(this, 1); //Temporarily set to 0
+    private GameBoard defBoard = new GameBoard(this, GameBoard.DEFENSE_BOARD);
+    private GameBoard attBoard = new GameBoard(this, GameBoard.ATTACK_BOARD);
     
-    private GameChat gameChat= new GameChat(); 
+    private GameChat gameChat = new GameChat(); 
     
     private GameLoopThread gameLoopThread = new GameLoopThread();
     
@@ -35,18 +36,20 @@ public class GameDisplay extends JPanel {
     
     private final int SETUP_TIME = 60;
     private final int TURN_TIME = 30;
-    private int intTime = SETUP_TIME;
-    private Timer turnTimer = new Timer(1000, new TurnListener());
+    private volatile int intTime = SETUP_TIME;
+    protected Timer turnTimer = new Timer(1000, new TurnListener());
     
     private JButton btnReady = new JButton("Ready!");
     private JButton btnFire = new JButton("Fire!");
     private JLabel lblTime = new JLabel(String.valueOf(intTime));
-    private JLabel lblTurn = new JLabel("Waiting for Opponent");
+    private JLabel lblTurn = new JLabel("Waiting for Opponent...");
     private JLabel lblPlace = new JLabel("Place your Ships!");
     
     private volatile boolean setUp = true;
-    private volatile boolean myTurn = true;
+    private volatile boolean opponentSettingUp = true;
+    private volatile boolean myTurn = false;
     
+    private int myShips = 5;
     
     private MainLobby mainLobby;
     private Player me;
@@ -78,9 +81,129 @@ public class GameDisplay extends JPanel {
     }
     
     
-    protected void msgControl(GameMessage newMsg){
+    protected void msgControl(GameMessage gameMsg){
         
+        switch (gameMsg.getAction()) {
+            case Forfeit:
+                turnTimer.stop();
+                
+                Assets.clipVictory.setFramePosition(0);
+                Assets.clipVictory.start();
+                
+                JOptionPane.showMessageDialog(null, opponent.getUserName() + " has forfeit the game!", 
+                        "You Won!", JOptionPane.INFORMATION_MESSAGE);
+                mainLobby.setInGame(false);
+                ((Window) getRootPane().getParent()).dispose();
+                break;
+                
+            case Ready:
+                opponentSettingUp = false;
+                break;
+                
+            case First:
+                myTurn(true);
+                break;
+                
+            case Second:
+                myTurn(false);
+                break;
+                
+            case SkipTurn:
+                // Opponent did not take their turn in time
+                myTurn(true);
+                break;
+                
+            case Shot:
+                // Check to see if the shot hit any ships
+                // Display it on the gameboard
+                if (defBoard.checkHit(gameMsg.getLocation())) {
+                    
+                    // Send back the result
+                    sendData(new GameMessage(GameAction.Result_Hit, gameMsg.getLocation(), opponent));
+                    
+                    // If last ship was sunk, Game Over
+                    if (myShips <= 0) {
+                        sendData(new GameMessage(GameAction.AllShipsSunk, opponent));
+
+                        // Game Loss Code
+                        turnTimer.stop();
+                        gameLost();
+
+                    }
+                    
+                } else {
+                    
+                    sendData(new GameMessage(GameAction.Result_Miss, gameMsg.getLocation(), opponent));
+                    
+                }
+                
+                
+                
+                myTurn(true);
+                break;
+                
+            case Result_Hit:
+                // Process the result of last turn taken
+                // Display it on the gameboard
+                attBoard.setShotsTaken(gameMsg.getLocation(), GameBoard.HIT);
+                
+                Assets.clipExplosion.setFramePosition(0);
+                Assets.clipExplosion.start();
+                break;
+                
+            case Result_Miss:
+                // Process the result of last turn taken
+                // Display it on the gameboard
+                attBoard.setShotsTaken(gameMsg.getLocation(), GameBoard.MISS);
+                
+                Assets.clipWrong.setFramePosition(0);
+                Assets.clipWrong.start();
+                break;
+                
+            case ShipSank:
+                // Notify the user that a ship has sank
+                // In the chat window in BOLD font
+                break;
+                
+            case AllShipsSunk:
+                // Notify the user of their victory
+                turnTimer.stop();
+                
+                Assets.clipVictory.setFramePosition(0);
+                Assets.clipVictory.start();
+                
+                JOptionPane.showMessageDialog(null, "You have sunk all the ships! Congratulations!", 
+                        "Victory!", JOptionPane.INFORMATION_MESSAGE);
+                mainLobby.getS().getPlayer().addWin();
+                mainLobby.setInGame(false);
+                ((Window) getRootPane().getParent()).dispose();
+                
+                break;
+                
+            default:
+                break;
+        }
         
+    }
+    
+    private void myTurn(boolean isMyTurn){
+        
+        myTurn = isMyTurn;
+        lblTurn.setVisible(!isMyTurn);
+        btnFire.setEnabled(false);
+        btnFire.setVisible(isMyTurn);
+        
+        resetTimer();
+        
+        Assets.clipTurn.setFramePosition(0);
+        Assets.clipTurn.start();
+        
+    }
+    
+    private void resetTimer(){
+        
+        intTime = TURN_TIME;
+        lblTime.setText(String.valueOf(intTime));
         
     }
     
@@ -119,21 +242,22 @@ public class GameDisplay extends JPanel {
         for (int i = 0; i < 10; i++) {
             
             for (int j = 0; j < 2; j++) {
+                
                 lblRow[j][i] = new JLabel(String.valueOf((char) (i + 65)));
                 lblRow[j][i].setBounds(j * 900, (i * 50 + 50), 50, 50);
                 lblRow[j][i].setHorizontalAlignment(JLabel.CENTER);
                 lblRow[j][i].setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                lblRow[j][i].setVisible(false);
                 add(lblRow[j][i]);
 
                 lblCol[j][i] = new JLabel(String.valueOf(i + 1));
                 lblCol[j][i].setBounds((i * 50 + 50 + (j * 900)), 0, 50, 50);
                 lblCol[j][i].setHorizontalAlignment(JLabel.CENTER);
                 lblCol[j][i].setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                lblCol[j][i].setVisible(false);
                 add(lblCol[j][i]);
             }
         }
+        
+        setLabelVisible(GameBoard.ATTACK_BOARD, false);
         
         lblCarrier = new JLabel("Carrier", new ImageIcon(Assets.imgCarrier[Ship.HORIZONTAL]), JLabel.CENTER);
         
@@ -201,24 +325,135 @@ public class GameDisplay extends JPanel {
         
         
         add(lblPlace);
-        lblPlace.setBounds(950, 200, 500, 100);
+        lblPlace.setBounds(950, 200, 500, 50);
         lblPlace.setHorizontalAlignment(JLabel.CENTER);
         lblPlace.setFont(new Font(Font.DIALOG, Font.BOLD, 48));
         
-        // TODO: Place timer and ready button under lblPlace
+        
         add(lblTime);
-        lblTime.setBounds(600, 550, 260, 50);
+        lblTime.setBounds(950, 270, 500, 50);
         lblTime.setHorizontalAlignment(JLabel.CENTER);
         lblTime.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
         lblTime.setForeground(Color.RED);
         
         add(btnReady);
-        btnReady.setBounds(200, 570, 200, 40);
+        btnReady.setBounds(1100, 340, 200, 40);
+        btnReady.addActionListener(new ReadyListener());
+        btnReady.setEnabled(false);
+        
+        add(lblTurn);
+        lblTurn.setBounds(960, 575, 500, 50);
+        lblTurn.setHorizontalAlignment(JLabel.CENTER);
+        lblTurn.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+        lblTurn.setVisible(false);
+        
+        add(btnFire);
+        btnFire.setBounds(1100, 575, 200, 40);
+        btnFire.addActionListener(new FireListener());
+        btnFire.setVisible(false);
         
         turnTimer.start();
     }
     
-    public void updateLabels(int intCol, int intRow, int intOldCol, int intOldRow, int intBoard){
+    
+    protected void setFireEnabled(boolean enable){
+        btnFire.setEnabled(enable);
+    }
+    
+    private void playerAFK(){
+        
+        sendData(new GameMessage(GameAction.AFK, opponent));
+        mainLobby.setInGame(false);
+        JOptionPane.showMessageDialog(null, "Game has been terminated as both opponents are not present.", 
+                            "Terminated", JOptionPane.INFORMATION_MESSAGE);
+        // Close window
+        ((Window) getRootPane().getParent()).dispose();
+        
+    }
+    
+    protected void playerForfeit(){
+        
+        sendData(new GameMessage(GameAction.Forfeit, opponent));
+        
+        
+    }
+    
+    private void playerReady(){
+        
+        lblTime.setBounds(600, 550, 260, 50);
+        btnReady.setVisible(false);
+        lblPlace.setVisible(false);
+        attBoard.setVisible(true);
+        lblTurn.setVisible(true);
+        setLabelVisible(GameBoard.ATTACK_BOARD, true);
+
+        setUp = false;
+
+        Assets.clipStart.setFramePosition(0);
+        Assets.clipStart.start();
+        
+        
+        sendData(new GameMessage(GameAction.Ready, opponent));
+        
+        if (!opponentSettingUp) {
+            sendData(new GameMessage(GameAction.RequestTurn, opponent));
+        }
+        
+    }
+    
+    private void takeTurn(Point location){
+        
+        myTurn(false);
+        sendData(new GameMessage(GameAction.Shot, location, opponent));
+        
+        
+    }
+    
+    private void skipTurn(){
+        
+        myTurn(false);
+        sendData(new GameMessage(GameAction.SkipTurn, opponent));
+        
+    }
+    
+    private void gameLost(){
+        
+        Assets.clipDefeat.setFramePosition(0);
+        Assets.clipDefeat.start();
+        
+        mainLobby.getS().getPlayer().addLoss();
+        mainLobby.setInGame(false);
+        JOptionPane.showMessageDialog(null, "You have been defeated!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
+        
+        ((Window) getRootPane().getParent()).dispose();
+        
+    }
+    
+    protected void shipSank(){
+        
+        myShips--;
+        
+        // Notify the other client they sank a ship
+        sendData(new GameMessage(GameAction.ShipSank, opponent));
+        
+        
+        
+    }
+    
+    
+    private void setLabelVisible(int board, boolean isVisible){
+        
+        for (JLabel item : lblRow[board]) {
+            item.setVisible(isVisible);
+        }
+        
+        for (JLabel item : lblCol[board]) {
+            item.setVisible(isVisible);
+        }
+        
+    }
+    
+    protected void updateLabels(int intCol, int intRow, int intOldCol, int intOldRow, int intBoard){
         
         clearLabelColor(intBoard);
         
@@ -227,7 +462,7 @@ public class GameDisplay extends JPanel {
         
     }
     
-    public void clearLabelColor(int intBoard){
+    protected void clearLabelColor(int intBoard){
         
         for (int i = 0; i < 10; i++) {
             
@@ -235,6 +470,12 @@ public class GameDisplay extends JPanel {
             lblCol[intBoard][i].setForeground(Color.BLACK);
             
         }
+        
+    }
+    
+    protected void updateReadyButton(boolean isReady){
+        
+        btnReady.setEnabled(isReady);
         
     }
     
@@ -260,6 +501,10 @@ public class GameDisplay extends JPanel {
         @Override
         public void mousePressed(MouseEvent e){
             
+            if (!setUp) { return; } // Skip placement code
+            
+            
+            // For ship placement ------------------------------
             strSelected = ((JLabel) e.getSource()).getName();
 
             defBoard.setSelectedShip(Ship.valueOf(strSelected));
@@ -278,16 +523,45 @@ public class GameDisplay extends JPanel {
         public void actionPerformed(ActionEvent ae) {
             
             // This timer will keep track of turns and setup time
-            if (setUp) {
-                intTime--;
-                lblTime.setText(String.valueOf(intTime));
+            
+            intTime--;
+            lblTime.setText(String.valueOf(intTime));
                 
+            if (setUp || opponentSettingUp) {    
                 if (intTime <= 0) {
                     // Player ran out of time and forfeit the game
+                    // Timer will keep running in case only one of the players is AFK
                     turnTimer.stop();
+                    playerAFK();
                 }
             }
             
+            if (myTurn && !setUp) {
+                if (intTime <= 0) {
+                    skipTurn();
+                }
+            }
+            
+        }
+        
+    }
+    
+    private class FireListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            takeTurn(attBoard.getMissileLoc());
+            attBoard.getMissile().setPlaced(false);
+        }
+        
+    }
+    
+    private class ReadyListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            
+            playerReady();
             
         }
         
@@ -344,4 +618,11 @@ public class GameDisplay extends JPanel {
         return lblBattleship;
     }
     
+    public boolean isSetUp(){
+        return setUp;
+    }
+    
+    public boolean isMyTurn(){
+        return myTurn;
+    }
 }

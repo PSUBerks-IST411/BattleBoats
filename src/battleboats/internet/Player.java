@@ -19,7 +19,7 @@ public class Player implements Serializable, Comparable {
     private boolean isMe = false;
     
     
-    public enum Status { InLobby, InGame, InQueue };
+    public enum Status { InLobby, InGame, InQueue, Offline };
     
     
     public Player(int intID, String strUserName, int intWins, int intLosses, int intForfeits){
@@ -34,6 +34,17 @@ public class Player implements Serializable, Comparable {
         
     }
     
+    public void addWin(){
+        intWins++;
+    }
+    
+    public void addLoss(){
+        intLosses++;
+    }
+    
+    public void addForfeit(){
+        intForfeits++;
+    }
     
     public String getUserName(){
         return strUserName;

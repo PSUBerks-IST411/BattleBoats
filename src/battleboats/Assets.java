@@ -19,7 +19,8 @@ public class Assets {
     public static BufferedImage imgWater,
                                 imgCheck,
                                 imgX,
-                                imgExplosion;
+                                imgExplosion,
+                                imgMissile;
     
     public static BufferedImage[] imgCarrier = new BufferedImage[4],
                                   imgBattleship = new BufferedImage[4],
@@ -32,7 +33,14 @@ public class Assets {
                        clipWrong,
                        clipPickup,
                        clipSwap,
-                       clipDeselect;
+                       clipDeselect,
+                       clipStart,
+                       clipExplosion,
+                       clipTurn,
+                       clipVictory,
+                       clipDefeat,
+                       clipChatReceive,
+                       clipChatSend;
     
     
     public static void init() {
@@ -44,6 +52,7 @@ public class Assets {
             imgCheck = ImageIO.read(Assets.class.getResource("/images/check_scaled.png"));
             imgX = ImageIO.read(Assets.class.getResource("/images/x_scaled.png"));
             imgExplosion = ImageIO.read(Assets.class.getResource("/images/explosion_scaled.png"));
+            imgMissile = ImageIO.read(Assets.class.getResource("/images/missile_scaled.png"));
             
             
             for (int i = 0; i < 4; i++) {
@@ -91,6 +100,34 @@ public class Assets {
             audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/deselect.wav"));
             clipDeselect = AudioSystem.getClip();
             clipDeselect.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/ding.wav"));
+            clipStart = AudioSystem.getClip();
+            clipStart.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/your_turn.wav"));
+            clipTurn = AudioSystem.getClip();
+            clipTurn.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/victory.wav"));
+            clipVictory = AudioSystem.getClip();
+            clipVictory.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/defeat.wav"));
+            clipDefeat = AudioSystem.getClip();
+            clipDefeat.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/chat2.wav"));
+            clipChatReceive = AudioSystem.getClip();
+            clipChatReceive.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/chat.wav"));
+            clipChatSend = AudioSystem.getClip();
+            clipChatSend.open(audioInputStream);
+            
+            audioInputStream = AudioSystem.getAudioInputStream(Assets.class.getResource("/sound/explosion.wav"));
+            clipExplosion = AudioSystem.getClip();
+            clipExplosion.open(audioInputStream);
             
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             ex.printStackTrace();

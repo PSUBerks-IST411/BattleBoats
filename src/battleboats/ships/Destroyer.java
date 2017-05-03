@@ -9,9 +9,11 @@ import battleboats.Assets;
  */
 public class Destroyer extends Ship {
 
+    private static final int SIZE = 3;
+    
     public Destroyer(){
         
-        super(3, Assets.imgDestroyer);
+        super(SIZE, Assets.imgDestroyer);
         
     }
     

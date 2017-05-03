@@ -3,7 +3,6 @@ package battleboats.messages;
 
 import battleboats.internet.Player;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**

@@ -9,9 +9,11 @@ import battleboats.Assets;
  */
 public class Carrier extends Ship {
     
+    private static final int SIZE = 5;
+    
     public Carrier(){
         
-        super(5, Assets.imgCarrier);
+        super(SIZE, Assets.imgCarrier);
         
     }
     

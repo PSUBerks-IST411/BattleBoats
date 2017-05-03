@@ -17,10 +17,13 @@ public class DBConnect {
     private Connection dbC;
     private ResultSet rs;
     
-    public PreparedStatement sqlFindPlayer;
-    public PreparedStatement sqlGetPlayer;
-    public PreparedStatement sqlCheckPlayer;
-    public PreparedStatement sqlAddPlayer;
+    private PreparedStatement sqlFindPlayer;
+    private PreparedStatement sqlGetPlayer;
+    private PreparedStatement sqlCheckPlayer;
+    private PreparedStatement sqlAddPlayer;
+    private PreparedStatement sqlUpdateWins;
+    private PreparedStatement sqlUpdateLosses;
+    private PreparedStatement sqlUpdateForfeits;
     
     public DBConnect(String strPath){
         try {
@@ -61,6 +64,22 @@ public class DBConnect {
         sqlAddPlayer = dbC.prepareStatement(
                 "INSERT INTO Player (userName, password) " + 
                 "VALUES (?, ?)");
+        
+        sqlUpdateWins = dbC.prepareStatement(
+                "UPDATE Player " + 
+                "SET wins = ? " +
+                "WHERE playerID = ?");
+        
+        sqlUpdateLosses = dbC.prepareStatement(
+                "UPDATE Player " + 
+                "SET losses = ? " +
+                "WHERE playerID = ?");
+        
+        sqlUpdateForfeits = dbC.prepareStatement(
+                "UPDATE Player " + 
+                "SET forfeits = ? " +
+                "WHERE playerID = ?");
+        
     }
     
     public boolean playerLogin(String userName, String password){
@@ -138,4 +157,44 @@ public class DBConnect {
         
         return false;
     }
+    
+    public void updatePlayerWins(int playerID, int wins){
+        
+        try {
+            
+            sqlUpdateWins.setInt(1, wins);
+            sqlUpdateWins.setInt(2, playerID);
+            sqlUpdateWins.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void updatePlayerLosses(int playerID, int losses){
+        
+        try {
+            
+            sqlUpdateLosses.setInt(1, losses);
+            sqlUpdateLosses.setInt(2, playerID);
+            sqlUpdateLosses.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void updatePlayerForfeits(int playerID, int forfeits){
+        
+        try {
+            
+            sqlUpdateForfeits.setInt(1, forfeits);
+            sqlUpdateForfeits.setInt(2, playerID);
+            sqlUpdateForfeits.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }
