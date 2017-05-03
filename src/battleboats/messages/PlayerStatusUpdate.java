@@ -17,9 +17,19 @@ public class PlayerStatusUpdate implements Serializable {
     private int intPlayerID;
     private Status updatedStatus;
     
+    private int playerWin;
+    private int playerLose;
+    private int playerForfeit;
+    
     public PlayerStatusUpdate(int intPlayerID, Status updatedStatus){
         this.intPlayerID = intPlayerID;
         this.updatedStatus = updatedStatus;
+    }
+    
+    public PlayerStatusUpdate(int playerWin, int playerLose, int playerForfeit){
+        this.playerWin = playerWin;
+        this.playerLose = playerLose;
+        this.playerForfeit = playerForfeit;
     }
     
     
@@ -29,6 +39,18 @@ public class PlayerStatusUpdate implements Serializable {
     
     public Status getUpdatedStatus(){
         return updatedStatus;
+    }
+    
+    public int getPlayerWin(){
+        return playerWin;
+    }
+    
+    public int getPlayerLose(){
+        return playerLose;
+    }
+    
+    public int getPlayerForfeit(){
+        return playerForfeit;
     }
     
 }

@@ -23,7 +23,7 @@ public class GameDisplay extends JPanel {
     private GameBoard defBoard = new GameBoard(this, GameBoard.DEFENSE_BOARD);
     private GameBoard attBoard = new GameBoard(this, GameBoard.ATTACK_BOARD);
     
-    private GameChat gameChat = new GameChat(); 
+    private GameChat gameChat; 
     
     private GameLoopThread gameLoopThread = new GameLoopThread();
     
@@ -62,11 +62,13 @@ public class GameDisplay extends JPanel {
      */
     public GameDisplay(Player me, Player opponent, MainLobby mainLobby) {
         
-        initComponents();
+        gameChat = new GameChat(me.getUserName(), opponent, this);
         
         this.me = me;
         this.opponent = opponent;
         this.mainLobby = mainLobby;
+        
+        initComponents();
         
         gameLoopThread.start();
         
@@ -74,6 +76,8 @@ public class GameDisplay extends JPanel {
     
     // Empty constructor for UI testing
     public GameDisplay(){
+        
+        gameChat = new GameChat("Whatever", opponent, this);
         
         initComponents();
         
@@ -128,6 +132,8 @@ public class GameDisplay extends JPanel {
                         // Game Loss Code
                         turnTimer.stop();
                         gameLost();
+                        
+                        break;
 
                     }
                     
@@ -163,6 +169,7 @@ public class GameDisplay extends JPanel {
             case ShipSank:
                 // Notify the user that a ship has sank
                 // In the chat window in BOLD font
+                gameChat.receiveChat("<b>You have sank a ship!</b>");
                 break;
                 
             case AllShipsSunk:
@@ -174,10 +181,14 @@ public class GameDisplay extends JPanel {
                 
                 JOptionPane.showMessageDialog(null, "You have sunk all the ships! Congratulations!", 
                         "Victory!", JOptionPane.INFORMATION_MESSAGE);
-                mainLobby.getS().getPlayer().addWin();
+                //mainLobby.getS().getPlayer().addWin();
                 mainLobby.setInGame(false);
                 ((Window) getRootPane().getParent()).dispose();
                 
+                break;
+                
+            case Chat:
+                gameChat.receiveChat(gameMsg);
                 break;
                 
             default:
@@ -207,7 +218,7 @@ public class GameDisplay extends JPanel {
         
     }
     
-    private void sendData(GameMessage toSend){
+    protected synchronized void sendData(GameMessage toSend){
         
         try {
             
@@ -340,6 +351,7 @@ public class GameDisplay extends JPanel {
         btnReady.setBounds(1100, 340, 200, 40);
         btnReady.addActionListener(new ReadyListener());
         btnReady.setEnabled(false);
+        btnReady.setFocusable(false);
         
         add(lblTurn);
         lblTurn.setBounds(960, 575, 500, 50);
@@ -351,6 +363,7 @@ public class GameDisplay extends JPanel {
         btnFire.setBounds(1100, 575, 200, 40);
         btnFire.addActionListener(new FireListener());
         btnFire.setVisible(false);
+        btnFire.setFocusable(false);
         
         turnTimer.start();
     }
@@ -421,7 +434,7 @@ public class GameDisplay extends JPanel {
         Assets.clipDefeat.setFramePosition(0);
         Assets.clipDefeat.start();
         
-        mainLobby.getS().getPlayer().addLoss();
+        //mainLobby.getS().getPlayer().addLoss();
         mainLobby.setInGame(false);
         JOptionPane.showMessageDialog(null, "You have been defeated!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
         
@@ -576,7 +589,7 @@ public class GameDisplay extends JPanel {
                 // Timing variables
                 long now;
                 long elapsedTime;
-                
+                long ms;
                 
                 while (running) {
                     
@@ -588,7 +601,8 @@ public class GameDisplay extends JPanel {
                     elapsedTime = System.currentTimeMillis() - now;
                     
                     try {
-                        Thread.sleep(16 - elapsedTime); // 60 FPS
+                        ms = 16 - elapsedTime >= 0 ? 16 - elapsedTime : 0;
+                        Thread.sleep(ms); // 60 FPS
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -624,5 +638,9 @@ public class GameDisplay extends JPanel {
     
     public boolean isMyTurn(){
         return myTurn;
+    }
+    
+    protected GameChat getGameChat(){
+        return gameChat;
     }
 }

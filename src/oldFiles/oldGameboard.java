@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Battleship;
+package oldFiles;
 
 import java.io.File;
 import javax.swing.Icon;
@@ -436,7 +436,7 @@ public class oldGameboard extends javax.swing.JFrame {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("J");
 
-        A1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A1Button.setToolTipText("A1");
         A1Button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -444,7 +444,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        A2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A2Button.setToolTipText("A2");
         A2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         A2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -453,7 +453,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        A3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A3Button.setToolTipText("A3");
         A3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         A3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -462,7 +462,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        A4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A4Button.setToolTipText("A4");
         A4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         A4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -471,7 +471,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        A5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A5Button.setToolTipText("A5");
         A5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         A5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -480,27 +480,27 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        A6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        A6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         A6Button.setToolTipText("A6");
         A6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel27.setToolTipText("A1");
         jLabel27.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel28.setToolTipText("A1");
         jLabel28.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel29.setToolTipText("A1");
         jLabel29.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel30.setToolTipText("A1");
         jLabel30.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        B1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B1Button.setToolTipText("B1");
         B1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         B1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -509,7 +509,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        C1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C1Button.setToolTipText("C1");
         C1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         C1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -518,7 +518,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        D1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D1Button.setToolTipText("D1");
         D1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         D1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -527,7 +527,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        E1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E1Button.setToolTipText("E1");
         E1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         E1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -536,7 +536,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        F1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F1Button.setToolTipText("F1");
         F1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         F1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -545,7 +545,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        G1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G1Button.setToolTipText("G1");
         G1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         G1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -554,7 +554,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        H1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H1Button.setToolTipText("H1");
         H1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         H1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -563,7 +563,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        I1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I1Button.setToolTipText("I1");
         I1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         I1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -572,7 +572,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        J1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J1Button.setToolTipText("J1");
         J1Button.setPreferredSize(new java.awt.Dimension(15, 15));
         J1Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -581,7 +581,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        B2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B2Button.setToolTipText("B2");
         B2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         B2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -590,7 +590,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        C2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C2Button.setToolTipText("C2");
         C2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         C2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -599,7 +599,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        D2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D2Button.setToolTipText("D2");
         D2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         D2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -608,7 +608,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        E2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E2Button.setToolTipText("E2");
         E2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         E2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -617,7 +617,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        F2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F2Button.setToolTipText("F2");
         F2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         F2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -626,7 +626,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        G2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G2Button.setToolTipText("G2");
         G2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         G2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -635,7 +635,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        H2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H2Button.setToolTipText("H2");
         H2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         H2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -644,7 +644,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        I2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I2Button.setToolTipText("I2");
         I2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         I2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -653,7 +653,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        J2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J2Button.setToolTipText("J2");
         J2Button.setPreferredSize(new java.awt.Dimension(15, 15));
         J2Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -662,7 +662,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        B3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B3Button.setToolTipText("B3");
         B3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         B3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -671,7 +671,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        C3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C3Button.setToolTipText("C3");
         C3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         C3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -680,7 +680,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        D3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D3Button.setToolTipText("D3");
         D3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         D3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -689,7 +689,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        E3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E3Button.setToolTipText("E3");
         E3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         E3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -698,7 +698,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        F3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F3Button.setToolTipText("F3");
         F3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         F3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -707,7 +707,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        G3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G3Button.setToolTipText("G3");
         G3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         G3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -716,7 +716,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        H3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H3Button.setToolTipText("H3");
         H3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         H3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -725,7 +725,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        I3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I3Button.setToolTipText("I3");
         I3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         I3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -734,7 +734,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        J3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J3Button.setToolTipText("J3");
         J3Button.setPreferredSize(new java.awt.Dimension(15, 15));
         J3Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -743,7 +743,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        B4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B4Button.setToolTipText("B4");
         B4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         B4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -752,7 +752,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        C4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C4Button.setToolTipText("C4");
         C4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         C4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -761,7 +761,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        D4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D4Button.setToolTipText("D4");
         D4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         D4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -770,7 +770,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        E4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E4Button.setToolTipText("E4");
         E4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         E4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -779,7 +779,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        F4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F4Button.setToolTipText("F4");
         F4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         F4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -788,7 +788,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        G4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G4Button.setToolTipText("G4");
         G4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         G4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -797,7 +797,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        H4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H4Button.setToolTipText("H4");
         H4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         H4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -806,7 +806,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        I4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I4Button.setToolTipText("I4");
         I4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         I4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -815,7 +815,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        J4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J4Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J4Button.setToolTipText("J4");
         J4Button.setPreferredSize(new java.awt.Dimension(15, 15));
         J4Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -824,7 +824,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        B5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B5Button.setToolTipText("B5");
         B5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         B5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -833,7 +833,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        C5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C5Button.setToolTipText("C5");
         C5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         C5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -842,7 +842,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        D5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D5Button.setToolTipText("D5");
         D5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         D5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -851,7 +851,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        E5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E5Button.setToolTipText("E5");
         E5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         E5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -860,7 +860,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        F5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F5Button.setToolTipText("F5");
         F5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         F5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -869,7 +869,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        G5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G5Button.setToolTipText("G5");
         G5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         G5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -878,7 +878,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        H5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H5Button.setToolTipText("H5");
         H5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         H5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -887,7 +887,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        I5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I5Button.setToolTipText("I5");
         I5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         I5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -896,7 +896,7 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        J5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J5Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J5Button.setToolTipText("J5");
         J5Button.setPreferredSize(new java.awt.Dimension(15, 15));
         J5Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -905,183 +905,183 @@ public class oldGameboard extends javax.swing.JFrame {
             }
         });
 
-        B6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        B6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         B6Button.setToolTipText("B6");
         B6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        C6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        C6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         C6Button.setToolTipText("C6");
         C6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        D6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        D6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         D6Button.setToolTipText("D6");
         D6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        E6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        E6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         E6Button.setToolTipText("E6");
         E6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        F6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        F6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         F6Button.setToolTipText("F6");
         F6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        G6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        G6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         G6Button.setToolTipText("G6");
         G6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        H6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        H6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         H6Button.setToolTipText("H6");
         H6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        I6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        I6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         I6Button.setToolTipText("I6");
         I6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        J6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        J6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         J6Button.setToolTipText("J6");
         J6Button.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel85.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel85.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel85.setToolTipText("A1");
         jLabel85.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel86.setToolTipText("A1");
         jLabel86.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel87.setToolTipText("A1");
         jLabel87.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel88.setToolTipText("A1");
         jLabel88.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel89.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel89.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel89.setToolTipText("A1");
         jLabel89.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel90.setToolTipText("A1");
         jLabel90.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel91.setToolTipText("A1");
         jLabel91.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel92.setToolTipText("A1");
         jLabel92.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel93.setToolTipText("A1");
         jLabel93.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel94.setToolTipText("A1");
         jLabel94.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel95.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel95.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel95.setToolTipText("A1");
         jLabel95.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel96.setToolTipText("A1");
         jLabel96.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel97.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel97.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel97.setToolTipText("A1");
         jLabel97.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel98.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel98.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel98.setToolTipText("A1");
         jLabel98.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel99.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel99.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel99.setToolTipText("A1");
         jLabel99.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel100.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel100.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel100.setToolTipText("A1");
         jLabel100.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel101.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel101.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel101.setToolTipText("A1");
         jLabel101.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel102.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel102.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel102.setToolTipText("A1");
         jLabel102.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel103.setToolTipText("A1");
         jLabel103.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel104.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel104.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel104.setToolTipText("A1");
         jLabel104.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel105.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel105.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel105.setToolTipText("A1");
         jLabel105.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel106.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel106.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel106.setToolTipText("A1");
         jLabel106.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel107.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel107.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel107.setToolTipText("A1");
         jLabel107.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel108.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel108.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel108.setToolTipText("A1");
         jLabel108.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel109.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel109.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel109.setToolTipText("A1");
         jLabel109.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel110.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel110.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel110.setToolTipText("A1");
         jLabel110.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel111.setToolTipText("A1");
         jLabel111.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel112.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel112.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel112.setToolTipText("A1");
         jLabel112.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel113.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel113.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel113.setToolTipText("A1");
         jLabel113.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel114.setToolTipText("A1");
         jLabel114.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel115.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel115.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel115.setToolTipText("A1");
         jLabel115.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel116.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel116.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel116.setToolTipText("A1");
         jLabel116.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel117.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel117.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel117.setToolTipText("A1");
         jLabel117.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel118.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel118.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel118.setToolTipText("A1");
         jLabel118.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel119.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel119.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel119.setToolTipText("A1");
         jLabel119.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel120.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel120.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel120.setToolTipText("A1");
         jLabel120.setPreferredSize(new java.awt.Dimension(15, 15));
 
@@ -1536,19 +1536,19 @@ public class oldGameboard extends javax.swing.JFrame {
         BattleshipLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BattleshipLabel.setText("BATTLESHIP");
 
-        AircraftCarrierIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/Carrier.png"))); // NOI18N
+        AircraftCarrierIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/Carrier.png"))); // NOI18N
         AircraftCarrierIcon.setText("Aircraft Carrier");
 
-        jLabel242.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/Battleship.png"))); // NOI18N
+        jLabel242.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/Battleship.png"))); // NOI18N
         jLabel242.setText("Battleship");
 
-        jLabel243.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/Cruiser.png"))); // NOI18N
+        jLabel243.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/Cruiser.png"))); // NOI18N
         jLabel243.setText("Cruiser");
 
-        jLabel244.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/Submarine.png"))); // NOI18N
+        jLabel244.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/Submarine.png"))); // NOI18N
         jLabel244.setText("Submarine");
 
-        jLabel245.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/Destroyer.png"))); // NOI18N
+        jLabel245.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/Destroyer.png"))); // NOI18N
         jLabel245.setText("Destroyer");
 
         jLabel246.setText("Hit!");
@@ -1675,403 +1675,403 @@ public class oldGameboard extends javax.swing.JFrame {
         jLabel140.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel140.setText("J");
 
-        jLabel141.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel141.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel141.setToolTipText("A1");
         jLabel141.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel142.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel142.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel142.setToolTipText("A1");
         jLabel142.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel143.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel143.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel143.setToolTipText("A1");
         jLabel143.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel144.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel144.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel144.setToolTipText("A1");
         jLabel144.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel145.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel145.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel145.setToolTipText("A1");
         jLabel145.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel146.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel146.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel146.setToolTipText("A1");
         jLabel146.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel147.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel147.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel147.setToolTipText("A1");
         jLabel147.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel148.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel148.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel148.setToolTipText("A1");
         jLabel148.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel149.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel149.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel149.setToolTipText("A1");
         jLabel149.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel150.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel150.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel150.setToolTipText("A1");
         jLabel150.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel151.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel151.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel151.setToolTipText("A2");
         jLabel151.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel152.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel152.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel152.setToolTipText("A1");
         jLabel152.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel153.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel153.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel153.setToolTipText("A1");
         jLabel153.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel154.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel154.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel154.setToolTipText("A1");
         jLabel154.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel155.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel155.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel155.setToolTipText("A1");
         jLabel155.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel156.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel156.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel156.setToolTipText("A1");
         jLabel156.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel157.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel157.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel157.setToolTipText("A1");
         jLabel157.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel158.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel158.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel158.setToolTipText("A1");
         jLabel158.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel159.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel159.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel159.setToolTipText("A1");
         jLabel159.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel160.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel160.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel160.setToolTipText("A1");
         jLabel160.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel161.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel161.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel161.setToolTipText("A1");
         jLabel161.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel162.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel162.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel162.setToolTipText("A1");
         jLabel162.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel163.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel163.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel163.setToolTipText("A1");
         jLabel163.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel164.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel164.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel164.setToolTipText("A1");
         jLabel164.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel165.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel165.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel165.setToolTipText("A1");
         jLabel165.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel166.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel166.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel166.setToolTipText("A1");
         jLabel166.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel167.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel167.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel167.setToolTipText("A1");
         jLabel167.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel168.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel168.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel168.setToolTipText("A1");
         jLabel168.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel169.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel169.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel169.setToolTipText("A1");
         jLabel169.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel170.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel170.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel170.setToolTipText("A1");
         jLabel170.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel171.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel171.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel171.setToolTipText("A1");
         jLabel171.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel172.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel172.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel172.setToolTipText("A1");
         jLabel172.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel173.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel173.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel173.setToolTipText("A1");
         jLabel173.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel174.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel174.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel174.setToolTipText("A1");
         jLabel174.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel175.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel175.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel175.setToolTipText("A1");
         jLabel175.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel176.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel176.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel176.setToolTipText("A1");
         jLabel176.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel177.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel177.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel177.setToolTipText("A1");
         jLabel177.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel178.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel178.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel178.setToolTipText("A1");
         jLabel178.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel179.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel179.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel179.setToolTipText("A1");
         jLabel179.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel180.setToolTipText("A1");
         jLabel180.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel181.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel181.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel181.setToolTipText("A1");
         jLabel181.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel182.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel182.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel182.setToolTipText("A1");
         jLabel182.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel183.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel183.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel183.setToolTipText("A1");
         jLabel183.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel184.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel184.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel184.setToolTipText("A1");
         jLabel184.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel185.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel185.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel185.setToolTipText("A1");
         jLabel185.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel186.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel186.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel186.setToolTipText("A1");
         jLabel186.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel187.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel187.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel187.setToolTipText("A1");
         jLabel187.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel188.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel188.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel188.setToolTipText("A1");
         jLabel188.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel189.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel189.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel189.setToolTipText("A1");
         jLabel189.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel190.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel190.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel190.setToolTipText("A1");
         jLabel190.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel191.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel191.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel191.setToolTipText("A1");
         jLabel191.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel192.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel192.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel192.setToolTipText("A1");
         jLabel192.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel193.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel193.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel193.setToolTipText("A1");
         jLabel193.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel194.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel194.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel194.setToolTipText("A1");
         jLabel194.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel195.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel195.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel195.setToolTipText("A1");
         jLabel195.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel196.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel196.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel196.setToolTipText("A1");
         jLabel196.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel197.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel197.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel197.setToolTipText("A1");
         jLabel197.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel198.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel198.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel198.setToolTipText("A1");
         jLabel198.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel199.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel199.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel199.setToolTipText("A1");
         jLabel199.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel200.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel200.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel200.setToolTipText("A1");
         jLabel200.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel201.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel201.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel201.setToolTipText("A1");
         jLabel201.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel202.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel202.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel202.setToolTipText("A1");
         jLabel202.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel203.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel203.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel203.setToolTipText("A1");
         jLabel203.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel204.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel204.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel204.setToolTipText("A1");
         jLabel204.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel205.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel205.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel205.setToolTipText("A1");
         jLabel205.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel206.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel206.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel206.setToolTipText("A1");
         jLabel206.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel207.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel207.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel207.setToolTipText("A1");
         jLabel207.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel208.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel208.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel208.setToolTipText("A1");
         jLabel208.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel209.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel209.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel209.setToolTipText("A1");
         jLabel209.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel210.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel210.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel210.setToolTipText("A1");
         jLabel210.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel211.setToolTipText("A1");
         jLabel211.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel212.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel212.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel212.setToolTipText("A1");
         jLabel212.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel213.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel213.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel213.setToolTipText("A1");
         jLabel213.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel214.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel214.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel214.setToolTipText("A1");
         jLabel214.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel215.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel215.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel215.setToolTipText("A1");
         jLabel215.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel216.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel216.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel216.setToolTipText("A1");
         jLabel216.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel217.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel217.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel217.setToolTipText("A1");
         jLabel217.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel218.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel218.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel218.setToolTipText("A1");
         jLabel218.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel219.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel219.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel219.setToolTipText("A1");
         jLabel219.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel220.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel220.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel220.setToolTipText("A1");
         jLabel220.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel221.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel221.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel221.setToolTipText("A1");
         jLabel221.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel222.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel222.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel222.setToolTipText("A1");
         jLabel222.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel223.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel223.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel223.setToolTipText("A1");
         jLabel223.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel224.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel224.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel224.setToolTipText("A1");
         jLabel224.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel225.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel225.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel225.setToolTipText("A1");
         jLabel225.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel226.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel226.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel226.setToolTipText("A1");
         jLabel226.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel227.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel227.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel227.setToolTipText("A1");
         jLabel227.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel228.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel228.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel228.setToolTipText("A1");
         jLabel228.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel229.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel229.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel229.setToolTipText("A1");
         jLabel229.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel230.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel230.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel230.setToolTipText("A1");
         jLabel230.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel231.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel231.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel231.setToolTipText("A1");
         jLabel231.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel232.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel232.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel232.setToolTipText("A1");
         jLabel232.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel233.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel233.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel233.setToolTipText("A1");
         jLabel233.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel234.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel234.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel234.setToolTipText("A1");
         jLabel234.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel235.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel235.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel235.setToolTipText("A1");
         jLabel235.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel236.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel236.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel236.setToolTipText("A1");
         jLabel236.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel237.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel237.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel237.setToolTipText("A1");
         jLabel237.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel238.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel238.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel238.setToolTipText("A1");
         jLabel238.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel239.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel239.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel239.setToolTipText("A1");
         jLabel239.setPreferredSize(new java.awt.Dimension(15, 15));
 
-        jLabel240.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Battleship/Images/GreyButton.png"))); // NOI18N
+        jLabel240.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oldFiles/Images/GreyButton.png"))); // NOI18N
         jLabel240.setToolTipText("A1");
         jLabel240.setPreferredSize(new java.awt.Dimension(15, 15));
 

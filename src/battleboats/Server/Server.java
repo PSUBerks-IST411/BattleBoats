@@ -204,7 +204,6 @@ public class Server {
                                 sendTo(gameMsg, gameMsg.getToPlayer().getID());
                                 
                                 // Make neccessary DB changes / UPDATE Player object
-                                // TODO: Need to properly update stats on clients
                                 db.updatePlayerWins(gameMsg.getToPlayer().getID(), gameMsg.getToPlayer().getWins() + 1);
                                 updateWins(gameMsg.getToPlayer().getID());
                                 
@@ -212,10 +211,7 @@ public class Server {
                                 updateForfeits(s.getPlayer().getID());
                                 
                                 // Set status back to InLobby
-                                updateClientStatus(gameMsg.getToPlayer(), Status.InLobby);
-                                updateClientStatus(s.getPlayer(), Status.InLobby);
-                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), Status.InLobby), null);
-                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InLobby), null);
+                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), 0, s.getPlayer().getID()), null);
                                 break;
                                 
                             case AFK:
@@ -233,6 +229,7 @@ public class Server {
                             case Result_Hit:
                             case Result_Miss:
                             case ShipSank:
+                            case Chat:
                                 // These messages will get directly routed to the other client
                                 sendTo(gameMsg, gameMsg.getToPlayer().getID());
                                 break;
@@ -261,10 +258,7 @@ public class Server {
                                 updateLosses(s.getPlayer().getID());
                                 
                                 // Update statuses to InLobby
-                                updateClientStatus(gameMsg.getToPlayer(), Status.InLobby);
-                                updateClientStatus(s.getPlayer(), Status.InLobby);
-                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), Status.InLobby), null);
-                                sendToAll(new PlayerStatusUpdate(s.getPlayer().getID(), Status.InLobby), null);
+                                sendToAll(new PlayerStatusUpdate(gameMsg.getToPlayer().getID(), s.getPlayer().getID(), 0), null);
                                 break;
                                 
                             default:
@@ -316,6 +310,7 @@ public class Server {
         for (SocketHandler clients : lobbyClients) {
             if (clients.getPlayer().getID() == playerID) {
                 clients.getPlayer().addWin();
+                clients.getPlayer().setStatus(Status.InLobby);
                 break;
             }
         }
@@ -326,6 +321,7 @@ public class Server {
         for (SocketHandler clients : lobbyClients) {
             if (clients.getPlayer().getID() == playerID) {
                 clients.getPlayer().addLoss();
+                clients.getPlayer().setStatus(Status.InLobby);
                 break;
             }
         }
@@ -336,6 +332,7 @@ public class Server {
         for (SocketHandler clients : lobbyClients) {
             if (clients.getPlayer().getID() == playerID) {
                 clients.getPlayer().addForfeit();
+                clients.getPlayer().setStatus(Status.InLobby);
                 break;
             }
         }

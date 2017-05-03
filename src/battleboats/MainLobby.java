@@ -22,11 +22,11 @@ import javax.swing.*;
  */
 public class MainLobby extends javax.swing.JFrame {
 
-    private MainLobby mainLobby;
+    private final MainLobby mainLobby;
     private JFrame gameFrame;
     private GameDisplay gameDisplay;
     
-    private SocketHandler s;
+    private final SocketHandler s;
     
     private volatile DefaultListModel listModel;
     
@@ -137,6 +137,10 @@ public class MainLobby extends javax.swing.JFrame {
                                 chatText.append(sysMsg.getMessage());
                                 chatText.append("<br /> ");
                                 txtChat.setText(chatText.toString());
+                                
+                                Assets.clipChatReceive.setFramePosition(0);
+                                Assets.clipChatReceive.start();
+                                
                                 scrollDown();
                                 break;
 
@@ -144,7 +148,17 @@ public class MainLobby extends javax.swing.JFrame {
                                 break;
                         }
                     } else if (newMsg instanceof PlayerStatusUpdate) {
-                        updatePlayerStatus((PlayerStatusUpdate) newMsg);
+                        PlayerStatusUpdate updateMsg = (PlayerStatusUpdate) newMsg;
+                        
+                        if (updateMsg.getPlayerID() > 0) {
+                            // Only a status update
+                            updatePlayerStatus(updateMsg);
+                        } else {
+                            // Player record update
+                            // Automatically set status to InLobby
+                            updatePlayerRecord(updateMsg);
+                        }
+                        
                         
                     } else if (newMsg instanceof ChallengeMessage) {
                         ChallengeMessage cMsg = (ChallengeMessage) newMsg;
@@ -255,12 +269,50 @@ public class MainLobby extends javax.swing.JFrame {
     }
     
     private void updatePlayerStatus(PlayerStatusUpdate psUpdate){
+        
         int intID = psUpdate.getPlayerID();
+        
         for (Player player : arrPlayers) {
             if (intID == player.getID()) {
                 player.setStatus(psUpdate.getUpdatedStatus());
                 break;
             }
+        }
+        //System.out.println("updated");
+        refreshPlayerList(false);
+    }
+    
+    private void updatePlayerRecord(PlayerStatusUpdate psUpdate){
+        
+        int winID = psUpdate.getPlayerWin();
+        int loseID = psUpdate.getPlayerLose();
+        int forfeitID = psUpdate.getPlayerForfeit();
+        int updated = 0; // When 2 records get updated, break the loop. For efficiency.
+        
+        for (Player player : arrPlayers) {
+            
+            if (updated >= 2) { break; }
+            
+            if (winID == player.getID()) { // There will always be a winner
+                player.addWin();
+                player.setStatus(Status.InLobby);
+                updated++;
+                continue;
+            }
+            
+            if (loseID > 0 && loseID == player.getID()) {
+                player.addLoss();
+                player.setStatus(Status.InLobby);
+                updated++;
+                continue;
+            }
+            
+            if (forfeitID > 0 && forfeitID == player.getID()) {
+                player.addForfeit();
+                player.setStatus(Status.InLobby);
+                updated++;
+            }
+            
         }
         //System.out.println("updated");
         refreshPlayerList(false);
@@ -379,7 +431,7 @@ public class MainLobby extends javax.swing.JFrame {
             inGame = false;
             gameDisplay.turnTimer.stop();
             gameDisplay.playerForfeit();
-            s.getPlayer().addForfeit();
+            //s.getPlayer().addForfeit();
         }
         
     }
@@ -607,6 +659,9 @@ public class MainLobby extends javax.swing.JFrame {
             chatText.append("<br /> ");
             txtChat.setText(chatText.toString());
             sendData(new SystemMessage(MsgType.LobbyChat, txtSend.getText()));
+            
+            Assets.clipChatSend.setFramePosition(0);
+            Assets.clipChatSend.start();
             
             txtSend.setText("");
         } catch (IOException ex) {

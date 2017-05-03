@@ -15,14 +15,13 @@ import java.io.Serializable;
 public class GameMessage implements Serializable {
     
     public enum GameAction { Shot, Result_Hit, Result_Miss, ShipSank, AllShipsSunk, SkipTurn, 
-                            RequestTurn, First, Second, Ready, Forfeit, AFK };
+                            RequestTurn, First, Second, Ready, Forfeit, AFK, Chat };
     
     Player toPlayer;
     Player fromPlayer;
     GameAction gAction;
     Point location;
-    //Message type eg. player move, player move result, ready, chat, etc..
-    //Message
+    String message;
     
     public GameMessage(GameAction gAction, Player toPlayer){
         this.gAction = gAction;
@@ -31,6 +30,12 @@ public class GameMessage implements Serializable {
     
     public GameMessage(GameAction gAction){
         this.gAction = gAction;
+    }
+    
+    public GameMessage(GameAction gAction, String message, Player toPlayer){
+        this.gAction = gAction;
+        this.message = message;
+        this.toPlayer = toPlayer;
     }
     
     public GameMessage(GameAction gAction, Point location, Player toPlayer){
@@ -57,5 +62,9 @@ public class GameMessage implements Serializable {
     
     public Point getLocation(){
         return location;
+    }
+    
+    public String getMessage(){
+        return message;
     }
 }

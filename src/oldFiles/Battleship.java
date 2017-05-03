@@ -1,4 +1,4 @@
-package Battleship;
+package oldFiles;
 import java.util.Scanner;
 
 /* Author: Ethan Hanlon
